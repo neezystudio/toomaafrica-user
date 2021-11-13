@@ -1,4 +1,4 @@
-package com.gomarketdemo.user
+package com.samchi.shikilia.user
 
 import io.flutter.embedding.android.FlutterActivity
 

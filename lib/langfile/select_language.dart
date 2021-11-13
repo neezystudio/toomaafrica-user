@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,7 +7,6 @@ import 'package:user/language_cubit.dart';
 
 import '../Themes/colors.dart';
 import '../Themes/colors.dart';
-
 
 class ChooseLanguage extends StatefulWidget {
   @override
@@ -47,11 +45,9 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
         String langCode = prefs.getString('language');
         if (langCode == 'en') {
           selectedLanguage = locale.englishh;
-        } else if (langCode == 'es') {
-          selectedLanguage = locale.spanishh;
-        } else if (langCode == 'hi') {
-          selectedLanguage = locale.hindih;
-        }else{
+        } else if (langCode == 'sw') {
+          selectedLanguage = locale.swahili;
+        } else {
           selectedLanguage = locale.englishh;
         }
         setState(() {
@@ -70,7 +66,7 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
       setState(() {
         enteredFirst = true;
       });
-      languages = [locale.englishh, locale.spanishh, locale.hindih];
+      languages = [locale.englishh, locale.swahili];
       getAsyncValue(languages, locale);
     }
     return Scaffold(
@@ -145,7 +141,7 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               MaterialButton(
-                minWidth: MediaQuery.of(context).size.width/2,
+                minWidth: MediaQuery.of(context).size.width / 2,
                 height: 45,
                 onPressed: () {
                   if (selectedIndex >= 0) {
@@ -154,19 +150,17 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
                     });
                     if (selectedLanguage == locale.englishh) {
                       _languageCubit.selectLanguage('en');
-                    } else if (selectedLanguage == locale.spanishh) {
-                      _languageCubit.selectLanguage('es');
-                    } else if (selectedLanguage == locale.hindih) {
-                      _languageCubit.selectLanguage('hi');
+                    } else if (selectedLanguage == locale.swahili) {
+                      _languageCubit.selectLanguage('sw');
                     }
                   }
                   Navigator.pop(context);
                 },
                 color: kMainColor,
-                child: Text(locale.continueText,style: TextStyle(
-                    color: kWhiteColor,
-                    fontSize: 16
-                ),),
+                child: Text(
+                  locale.continueText,
+                  style: TextStyle(color: kWhiteColor, fontSize: 16),
+                ),
               )
             ],
           ),

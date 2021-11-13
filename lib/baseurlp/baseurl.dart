@@ -1,4 +1,4 @@
-var imageBaseUrl = "https://thecodecafe.in/go_market/gomarket_update/";
+var imageBaseUrl = "https://shikiliastores.com/admin/";
 var baseUrl = imageBaseUrl+"api/";
 var registerApi = Uri.parse(baseUrl + "user_register");
 var verifyPhone = Uri.parse(baseUrl + "verify_phone");
@@ -106,4 +106,4 @@ var baseUrlPaymongo = Uri.parse('api.paymongo.com');
 var paymentIntent = Uri.parse('https://api.paymongo.com/v1/payment_intents');
 var paymentMethod = Uri.parse('https://api.paymongo.com/v1/payment_methods');
 
-var appname = "GoMarket";
+var appname = "Shikilia";

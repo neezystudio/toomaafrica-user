@@ -44,9 +44,11 @@ class SettingState extends State<Settings> {
 
   getSharePrefOrUserId() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    if(preferences.containsKey('language') && preferences.getString('language')!=null){
-      int indit = radioList.indexOf(LanguageCode(preferences.getString('language'),''));
-      if(indit == 0 || indit>0){
+    if (preferences.containsKey('language') &&
+        preferences.getString('language') != null) {
+      int indit = radioList
+          .indexOf(LanguageCode(preferences.getString('language'), ''));
+      if (indit == 0 || indit > 0) {
         setState(() {
           idd1 = indit;
         });
@@ -81,11 +83,9 @@ class SettingState extends State<Settings> {
         String langCode = prefs.getString('language');
         if (langCode == 'en') {
           selectedLanguage = locale.englishh;
-        } else if (langCode == 'es') {
-          selectedLanguage = locale.spanishh;
-        } else if (langCode == 'hi') {
-          selectedLanguage = locale.hindih;
-        }else{
+        } else if (langCode == 'sw') {
+          selectedLanguage = locale.swahili;
+        } else {
           selectedLanguage = locale.englishh;
         }
         setState(() {
@@ -123,9 +123,8 @@ class SettingState extends State<Settings> {
         enteredFirst = true;
       });
       radioList = [
-        LanguageCode('en',locale.englishh),
-        LanguageCode('hi',locale.hindih),
-        LanguageCode('es',locale.spanishh),
+        LanguageCode('en', locale.englishh),
+        LanguageCode('sw', locale.swahili),
       ];
       getAsyncValue(radioList, locale);
     }
@@ -146,7 +145,7 @@ class SettingState extends State<Settings> {
             child: RaisedButton(
               onPressed: () {
                 pr.show();
-                hitService(context, pr,locale);
+                hitService(context, pr, locale);
               },
               child: Text(
                 locale.savetext,
@@ -289,21 +288,18 @@ class SettingState extends State<Settings> {
               padding: EdgeInsets.only(right: 5, left: 5),
               child: GridView.builder(
                 itemCount: radioList.length,
-                gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   crossAxisSpacing: 4.0,
                   mainAxisSpacing: 4.0,
-                  childAspectRatio:
-                  (itemWidth / itemHeight),
+                  childAspectRatio: (itemWidth / itemHeight),
                 ),
-                controller: ScrollController(
-                    keepScrollOffset: false),
+                controller: ScrollController(keepScrollOffset: false),
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) {
                   return GestureDetector(
-                    onTap: () async{
+                    onTap: () async {
                       setState(() {
                         idd1 = index;
                         selectedLanguage = radioList[idd1].langString;
@@ -314,24 +310,17 @@ class SettingState extends State<Settings> {
                       height: 100,
                       child: Container(
                         margin: EdgeInsets.only(
-                            right: 5,
-                            left: 5,
-                            top: 5,
-                            bottom: 5),
+                            right: 5, left: 5, top: 5, bottom: 5),
                         height: 30,
                         width: 100,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            color: (idd1 == index)
-                                ? kMainColor
-                                : kWhiteColor,
+                            color: (idd1 == index) ? kMainColor : kWhiteColor,
                             shape: BoxShape.rectangle,
-                            borderRadius:
-                            BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(20),
                             border: Border.all(
-                                color: (idd1 == index)
-                                    ? kMainColor
-                                    : kMainColor)),
+                                color:
+                                    (idd1 == index) ? kMainColor : kMainColor)),
                         child: Text(
                           '${radioList[index].langString}',
                           style: TextStyle(
@@ -352,7 +341,8 @@ class SettingState extends State<Settings> {
     );
   }
 
-  void hitService(BuildContext context, ProgressDialog pr, AppLocalizations locale) async {
+  void hitService(
+      BuildContext context, ProgressDialog pr, AppLocalizations locale) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var url = notificationby;
     await http.post(url, body: {

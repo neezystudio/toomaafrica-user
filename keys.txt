@@ -1,0 +1,924 @@
+Variant: debug
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: release
+Config: none
+----------
+Variant: profile
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: none
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :firebase_auth:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :firebase_core:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :firebase_messaging:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :flutter_full_pdf_viewer:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :flutter_local_notifications:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :flutter_paystack:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :flutter_plugin_android_lifecycle:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :flutter_share:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :geocoder:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :geolocator:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :google_api_headers:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :google_maps_flutter:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :image_picker:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :package_info_plus:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :path_provider:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :printing:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :razorpay_flutter:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :shared_preferences:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :sqflite:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :url_launcher:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :video_player:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :wakelock:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+
+> Task :webview_flutter:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: debugUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: releaseUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051
+----------
+Variant: profileUnitTest
+Config: debug
+Store: /home/georgen/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 94:11:92:92:18:ED:24:96:28:8E:19:4A:73:65:32:3C
+SHA1: D6:FC:6C:5C:67:DF:8C:C5:83:CF:9C:5A:DE:45:22:50:93:FF:16:0C
+SHA-256: 51:DD:74:BD:51:F5:3E:68:46:2A:B0:58:49:3E:8D:7B:02:CB:E5:B3:E9:DF:34:64:D4:96:2C:C5:BD:93:3E:C6
+Valid until: Sunday, July 30, 2051

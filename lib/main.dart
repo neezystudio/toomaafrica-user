@@ -63,8 +63,7 @@ class GoMarket extends StatelessWidget {
             ],
             supportedLocales: [
               const Locale('en'),
-              const Locale('hi'),
-              const Locale('es'),
+              const Locale('sw'),
             ],
             locale: locale,
             theme: appTheme,
@@ -116,8 +115,7 @@ class GoMarketHome extends StatelessWidget {
                 ],
                 supportedLocales: [
                   const Locale('en'),
-                  const Locale('hi'),
-                  const Locale('es'),
+                  const Locale('sw'),
                 ],
                 locale: locale,
                 theme: appTheme,
