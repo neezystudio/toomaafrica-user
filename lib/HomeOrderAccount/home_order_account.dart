@@ -21,22 +21,20 @@ import 'package:user/Themes/colors.dart';
 import 'package:user/baseurlp/baseurl.dart';
 import 'package:user/providerlist/offerlistprovider.dart';
 
-
 FirebaseMessaging messaging = FirebaseMessaging.instance;
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
   'high_importance_channel', // id
   'High Importance Notifications', // title
-  'This channel is used for important notifications.', // description
+  description:
+      'This channel is used for important notifications.', // description
   importance: Importance.high,
 );
 Future<void> myBackgroundMessageHandler(RemoteMessage message) async {
-  _showNotification(
-      flutterLocalNotificationsPlugin,
-      '${message.notification.title}',
-      '${message.notification.body}');
+  _showNotification(flutterLocalNotificationsPlugin,
+      '${message.notification.title}', '${message.notification.body}');
 }
-
 
 class HomeStateless extends StatelessWidget {
   @override
@@ -65,20 +63,18 @@ class _HomeOrderAccountState extends State<HomeOrderAccount> {
     notificationInit = BlocProvider.of<NotificationListCubit>(context);
     setFirebase();
     _navigationController =
-    new CircularBottomNavigationController(_currentIndex);
+        new CircularBottomNavigationController(_currentIndex);
     getCurrency();
   }
 
   void setFirebase() async {
-    try{
+    try {
       await Firebase.initializeApp();
-    }catch(e){
-
-    }
+    } catch (e) {}
     messaging = FirebaseMessaging.instance;
     iosPermission(messaging);
     var initializationSettingsAndroid =
-    AndroidInitializationSettings('logo_user');
+        AndroidInitializationSettings('logo_user');
     var initializationSettingsIOS = IOSInitializationSettings(
         onDidReceiveLocalNotification: onDidReceiveLocalNotification);
     var initializationSettings = InitializationSettings(
@@ -92,17 +88,17 @@ class _HomeOrderAccountState extends State<HomeOrderAccount> {
         .getInitialMessage()
         .then((RemoteMessage message) {
       if (message != null) {
-        _showNotification(
-            flutterLocalNotificationsPlugin,
-            '${message.notification.title}',
-            '${message.notification.body}');
+        _showNotification(flutterLocalNotificationsPlugin,
+            '${message.notification.title}', '${message.notification.body}');
       }
     });
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification notification = message.notification;
       AndroidNotification android = message.notification?.android;
-      if (notification != null && android != null && notification.body!=null) {
+      if (notification != null &&
+          android != null &&
+          notification.body != null) {
         notificationInit.hitNotification();
         print('notificatioin d d ');
         flutterLocalNotificationsPlugin.show(
@@ -113,7 +109,7 @@ class _HomeOrderAccountState extends State<HomeOrderAccount> {
               android: AndroidNotificationDetails(
                 channel.id,
                 channel.name,
-                channel.description,
+                channelDescription: channel.description,
                 icon: 'logo_user',
               ),
             ));
@@ -132,7 +128,7 @@ class _HomeOrderAccountState extends State<HomeOrderAccount> {
   }
 
   void getCurrency() async {
-    if(!isRunning){
+    if (!isRunning) {
       setState(() {
         isRunning = true;
       });
@@ -189,12 +185,12 @@ class _HomeOrderAccountState extends State<HomeOrderAccount> {
         new TabItem(Icons.home, locale.homeText, Colors.blue,
             labelStyle: TextStyle(fontWeight: FontWeight.normal)),
         new TabItem(Icons.local_offer, locale.updateText, Colors.orange,
-            labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+            labelStyle:
+                TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
         new TabItem(Icons.reorder, locale.orderText, Colors.red),
         new TabItem(Icons.account_circle, locale.accountText, Colors.cyan),
       ]);
     });
-
 
     return Scaffold(
       body: IndexedStack(
@@ -229,7 +225,6 @@ class _HomeOrderAccountState extends State<HomeOrderAccount> {
     );
   }
 
-
   Future onDidReceiveLocalNotification(
       int id, String title, String body, String payload) async {
     // var message = jsonDecode('${payload}');
@@ -238,10 +233,8 @@ class _HomeOrderAccountState extends State<HomeOrderAccount> {
 
   Future selectNotification(String payload) async {}
 
-
-
   void iosPermission(FirebaseMessaging firebaseMessaging) {
-    if(Platform.isIOS){
+    if (Platform.isIOS) {
       firebaseMessaging.setForegroundNotificationPresentationOptions(
         alert: true,
         badge: true,
@@ -266,16 +259,17 @@ Future<void> _showNotification(
   vibrationPattern[2] = 5000;
   vibrationPattern[3] = 2000;
   final AndroidNotificationDetails androidPlatformChannelSpecifics =
-  AndroidNotificationDetails('7458', 'Notify', 'Notify On Shopping',
-      vibrationPattern: vibrationPattern,
-      importance: Importance.max,
-      priority: Priority.high,
-      enableLights: true,
-      enableVibration: true,
-      playSound: true,
-      ticker: 'ticker');
+      AndroidNotificationDetails('7458', 'Notify',
+          channelDescription: 'Notify On Shopping',
+          vibrationPattern: vibrationPattern,
+          importance: Importance.max,
+          priority: Priority.high,
+          enableLights: true,
+          enableVibration: true,
+          playSound: true,
+          ticker: 'ticker');
   final IOSNotificationDetails iOSPlatformChannelSpecifics =
-  IOSNotificationDetails(presentSound: true);
+      IOSNotificationDetails(presentSound: true);
   final NotificationDetails platformChannelSpecifics = NotificationDetails(
     android: androidPlatformChannelSpecifics,
     iOS: iOSPlatformChannelSpecifics,
