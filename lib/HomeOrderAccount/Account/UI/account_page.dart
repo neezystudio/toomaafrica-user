@@ -94,7 +94,7 @@ class _AccountState extends State<Account> {
             onTap: () => Navigator.pushNamed(context, PageRoutes.reffernearn)),
         BuildListTile(
             //image: 'images/account/ic_menu_tncact.png',
-            icon: Icons.assessment,
+            icon: Icons.assignment,
             text: locale.tnc,
             onTap: () => Navigator.pushNamed(context, PageRoutes.tncPage)),
         BuildListTile(
@@ -111,7 +111,7 @@ class _AccountState extends State<Account> {
         ),
         BuildListTile(
           //image: 'images/account/ic_menu_aboutact.png',
-          icon: Icons.info,
+          icon: Icons.settings_sharp,
           text: locale.settingheding,
           onTap: () => Navigator.pushNamed(context, PageRoutes.settings),
         ),
