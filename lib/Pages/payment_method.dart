@@ -40,7 +40,7 @@ class PaymentPage extends StatefulWidget {
   final ShowAddressNew addressDelivery;
 
   PaymentPage(this.vendor_ids, this.order_id, this.cart_id, this.totalAmount,
-      this.tagObjs, this.orderArray,this.addressDelivery);
+      this.tagObjs, this.orderArray, this.addressDelivery);
 
   @override
   State<StatefulWidget> createState() {
@@ -520,7 +520,8 @@ class PaymentPageState extends State<PaymentPage> {
                                                   .toUpperCase() ==
                                               'YES')),
                                   child: BuildListTile(
-                                    image: 'images/payment/credit_card.png',
+                                    //icon: Icons.credit_card,
+                                    icon: Icons.credit_card,
                                     text: locale.debitcard,
                                     onTap: () {
                                       if ('${paymentVia.paystack.paystackStatus}'
@@ -564,7 +565,13 @@ class PaymentPageState extends State<PaymentPage> {
                                             //     paymentVia
                                             //         .stripe.paymentCurrency,
                                             //     context);
-                                            setStripePayment(paymentVia.stripe.stripeSecret, totalAmount, cardPay, paymentVia.stripe.paymentCurrency, context);
+                                            setStripePayment(
+                                                paymentVia.stripe.stripeSecret,
+                                                totalAmount,
+                                                cardPay,
+                                                paymentVia
+                                                    .stripe.paymentCurrency,
+                                                context);
                                           } else {
                                             Toast.show(
                                                 'Payment cancelled', context,
@@ -607,7 +614,8 @@ class PaymentPageState extends State<PaymentPage> {
                                                   .toUpperCase() ==
                                               'YES')),
                                   child: BuildListTile(
-                                    image: 'images/payment/credit_card.png',
+                                    //icon: Icons.credit_card,
+                                    icon: Icons.credit_card,
                                     text: locale.credticard,
                                     onTap: () {
                                       if ('${paymentVia.paystack.paystackStatus}'
@@ -651,7 +659,13 @@ class PaymentPageState extends State<PaymentPage> {
                                             //     paymentVia
                                             //         .stripe.paymentCurrency,
                                             //     context);
-                                            setStripePayment(paymentVia.stripe.stripeSecret, totalAmount, cardPay, paymentVia.stripe.paymentCurrency, context);
+                                            setStripePayment(
+                                                paymentVia.stripe.stripeSecret,
+                                                totalAmount,
+                                                cardPay,
+                                                paymentVia
+                                                    .stripe.paymentCurrency,
+                                                context);
                                           } else {
                                             Toast.show(
                                                 'Payment cancelled', context,
@@ -866,7 +880,8 @@ class PaymentPageState extends State<PaymentPage> {
                                       ),
                                     ),
                                     BuildListTile(
-                                        image: 'images/payment/amount.png',
+                                        //icon: Icons.money,
+                                        icon: Icons.money,
                                         text: 'Cash on Delivery',
                                         onTap: () {
                                           setState(() {
@@ -934,8 +949,7 @@ class PaymentPageState extends State<PaymentPage> {
                                           width:
                                               MediaQuery.of(context).size.width,
                                           child: BuildListTile(
-                                            image:
-                                                'images/payment/credit_card.png',
+                                            icon: Icons.credit_card,
                                             text: 'RazorPay',
                                             onTap: () {
                                               setState(() {
@@ -960,8 +974,7 @@ class PaymentPageState extends State<PaymentPage> {
                                           width:
                                               MediaQuery.of(context).size.width,
                                           child: BuildListTile(
-                                            image:
-                                                'images/payment/credit_card.png',
+                                            icon: Icons.credit_card,
                                             text: 'Paymongo',
                                             onTap: () {
                                               setState(() {
@@ -986,8 +999,7 @@ class PaymentPageState extends State<PaymentPage> {
                                           width:
                                               MediaQuery.of(context).size.width,
                                           child: BuildListTile(
-                                            image:
-                                                'images/payment/credit_card.png',
+                                            icon: Icons.credit_card,
                                             text: 'Paystack',
                                             onTap: () {
                                               setState(() {
@@ -1013,8 +1025,7 @@ class PaymentPageState extends State<PaymentPage> {
                                           width:
                                               MediaQuery.of(context).size.width,
                                           child: BuildListTile(
-                                            image:
-                                                'images/payment/credit_card.png',
+                                            icon: Icons.credit_card,
                                             text: 'Paypal',
                                             onTap: () {
                                               setState(() {
@@ -1061,8 +1072,7 @@ class PaymentPageState extends State<PaymentPage> {
                                           width:
                                               MediaQuery.of(context).size.width,
                                           child: BuildListTile(
-                                            image:
-                                                'images/payment/credit_card.png',
+                                            icon: Icons.credit_card,
                                             text: 'Stripe',
                                             onTap: () {
                                               setState(() {
@@ -1078,7 +1088,8 @@ class PaymentPageState extends State<PaymentPage> {
                                               //   androidPayMode: 'test',
                                               // ));
                                               Navigator.of(context)
-                                                  .pushNamed(PageRoutes.stripecard)
+                                                  .pushNamed(
+                                                      PageRoutes.stripecard)
                                                   .then((value) {
                                                 if (value != null) {
                                                   CreditCard cardPay = value;
@@ -1089,21 +1100,31 @@ class PaymentPageState extends State<PaymentPage> {
                                                   //     paymentVia
                                                   //         .stripe.paymentCurrency,
                                                   //     context);
-                                                  setStripePayment(paymentVia.stripe.stripeSecret, totalAmount, cardPay, paymentVia.stripe.paymentCurrency, context);
+                                                  setStripePayment(
+                                                      paymentVia
+                                                          .stripe.stripeSecret,
+                                                      totalAmount,
+                                                      cardPay,
+                                                      paymentVia.stripe
+                                                          .paymentCurrency,
+                                                      context);
                                                 } else {
                                                   Toast.show(
-                                                      'Payment cancelled', context,
+                                                      'Payment cancelled',
+                                                      context,
                                                       gravity: Toast.CENTER,
-                                                      duration: Toast.LENGTH_SHORT);
+                                                      duration:
+                                                          Toast.LENGTH_SHORT);
                                                   setState(() {
                                                     showDialogBox = false;
                                                   });
                                                 }
                                               }).catchError((e) {
-                                                Toast.show(
-                                                    'Payment cancelled', context,
+                                                Toast.show('Payment cancelled',
+                                                    context,
                                                     gravity: Toast.CENTER,
-                                                    duration: Toast.LENGTH_SHORT);
+                                                    duration:
+                                                        Toast.LENGTH_SHORT);
                                                 setState(() {
                                                   showDialogBox = false;
                                                 });
@@ -1144,8 +1165,7 @@ class PaymentPageState extends State<PaymentPage> {
                                                   .size
                                                   .width,
                                               child: BuildListTile(
-                                                image:
-                                                    'images/payment/credit_card.png',
+                                                icon: Icons.credit_card,
                                                 text: 'G-Cash',
                                                 onTap: () {
                                                   setState(() {
@@ -1169,8 +1189,7 @@ class PaymentPageState extends State<PaymentPage> {
                                                   .size
                                                   .width,
                                               child: BuildListTile(
-                                                image:
-                                                    'images/payment/credit_card.png',
+                                                icon: Icons.credit_card,
                                                 text: 'GrabPay',
                                                 onTap: () {
                                                   setState(() {
@@ -1718,13 +1737,16 @@ class PaymentPageState extends State<PaymentPage> {
     );
   }
 
-  void setStripePayment(dynamic clientScretKey, double amount,
-      CreditCard creditCardPay, String paymentCurrency, BuildContext context) async{
+  void setStripePayment(
+      dynamic clientScretKey,
+      double amount,
+      CreditCard creditCardPay,
+      String paymentCurrency,
+      BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // print('${creditCardPay.toJson().toString()}');
     Map<String, String> headers = {
-      'Authorization':
-          'Bearer $clientScretKey',
+      'Authorization': 'Bearer $clientScretKey',
       'Content-Type': 'application/x-www-form-urlencoded'
     };
 
@@ -1737,7 +1759,8 @@ class PaymentPageState extends State<PaymentPage> {
       'card[exp_year]': '${creditCardPay.expYear}',
       'card[cvc]': '${creditCardPay.cvc}',
       'billing_details[address][line1]': '${widget.addressDelivery.address}',
-      'billing_details[address][postal_code]': '${widget.addressDelivery.pincode}',
+      'billing_details[address][postal_code]':
+          '${widget.addressDelivery.pincode}',
       'billing_details[address][state]': '${widget.addressDelivery.state}',
       'billing_details[email]': '${prefs.getString('user_email')}',
       'billing_details[name]': '${prefs.getString('user_name')}',
@@ -1750,11 +1773,11 @@ class PaymentPageState extends State<PaymentPage> {
         .then((value) {
       print(value.body);
       var jsP = jsonDecode(value.body);
-      if(jsP['error']!=null){
+      if (jsP['error'] != null) {
         setState(() {
           showDialogBox = false;
         });
-      }else{
+      } else {
         createPaymentIntent('${amount.toInt() * 100}', '$paymentCurrency',
             headers, jsP, clientScretKey, context);
       }
@@ -1795,12 +1818,13 @@ class PaymentPageState extends State<PaymentPage> {
       };
       http.post(paymentApiUrl, body: body, headers: hearder).then((value) {
         var js = jsonDecode(value.body);
-        if(js['error']!=null){
+        if (js['error'] != null) {
           setState(() {
             showDialogBox = false;
           });
-        }else{
-          confirmCreatePaymentIntent(amount, currency, hearder, paymentMethod, js, clientScretKey, context);
+        } else {
+          confirmCreatePaymentIntent(amount, currency, hearder, paymentMethod,
+              js, clientScretKey, context);
         }
       }).catchError((e) {
         print('dd ${e}');
@@ -1822,49 +1846,53 @@ class PaymentPageState extends State<PaymentPage> {
     }
   }
 
-  void confirmCreatePaymentIntent(String amount,
+  void confirmCreatePaymentIntent(
+      String amount,
       String currency,
       Map<String, String> hearder,
       dynamic paymentMethod,
       dynamic payintent,
       clientScretKey,
-      BuildContext context) async{
-
+      BuildContext context) async {
     var body1 = {
       'payment_method': '${paymentMethod['id']}',
       'use_stripe_sdk': 'false',
-      'return_url': '$imageBaseUrl'+'resources/views/admin/paymentvia/payment.php',
+      'return_url':
+          '$imageBaseUrl' + 'resources/views/admin/paymentvia/payment.php',
     };
 
-    http.post(Uri.parse('$paymentApiUrl/${payintent['id']}/confirm'),
-        body: body1, headers: hearder)
+    http
+        .post(Uri.parse('$paymentApiUrl/${payintent['id']}/confirm'),
+            body: body1, headers: hearder)
         .then((value) {
       print(value.body);
       var js = jsonDecode(value.body);
-      if(js['error']!=null){
+      if (js['error'] != null) {
         setState(() {
           showDialogBox = false;
         });
-      }else{
-        if('${js['status']}'=='succeeded'){
-          placedOrder("success", "Card",context);
-        }else if('${js['status']}'=='requires_action'){
-if(js['next_action']!=null && js['next_action']['redirect_to_url']!=null){
-  Navigator.of(context).pushNamed(PageRoutes.paymentdoned, arguments: {
-    'url': js['next_action']['redirect_to_url']['url']
-  }).then((value) {
-confirmPaymentStripe(payintent['id'], hearder);
-  }).catchError((e) {
-    print(e);
-    setState(() {
-      showDialogBox = false;
-    });
-  });
-}else{
-  setState(() {
-    showDialogBox = false;
-  });
-}
+      } else {
+        if ('${js['status']}' == 'succeeded') {
+          placedOrder("success", "Card", context);
+        } else if ('${js['status']}' == 'requires_action') {
+          if (js['next_action'] != null &&
+              js['next_action']['redirect_to_url'] != null) {
+            Navigator.of(context).pushNamed(PageRoutes.paymentdoned,
+                arguments: {
+                  'url': js['next_action']['redirect_to_url']['url']
+                }).then((value) {
+              confirmPaymentStripe(payintent['id'], hearder);
+            }).catchError((e) {
+              print(e);
+              setState(() {
+                showDialogBox = false;
+              });
+            });
+          } else {
+            setState(() {
+              showDialogBox = false;
+            });
+          }
         }
       }
     }).catchError((e) {
@@ -1873,23 +1901,23 @@ confirmPaymentStripe(payintent['id'], hearder);
         showDialogBox = false;
       });
     });
-
   }
 
-  void confirmPaymentStripe(dynamic jsValue, dynamic hearder) async{
-    http.get(Uri.parse('$paymentApiUrl/$jsValue'),headers: hearder)
+  void confirmPaymentStripe(dynamic jsValue, dynamic hearder) async {
+    http
+        .get(Uri.parse('$paymentApiUrl/$jsValue'), headers: hearder)
         .then((value) {
       print(value.body);
       var js = jsonDecode(value.body);
-      if(js['error']!=null){
+      if (js['error'] != null) {
         setState(() {
           showDialogBox = false;
         });
-      }else{
+      } else {
         print(js['status']);
-        if('${js['status']}'=='succeeded'){
-          placedOrder("success", "Card",context);
-        }else{
+        if ('${js['status']}' == 'succeeded') {
+          placedOrder("success", "Card", context);
+        } else {
           setState(() {
             showDialogBox = false;
           });
@@ -1912,7 +1940,9 @@ confirmPaymentStripe(payintent['id'], hearder);
         'source': tokenId,
         'description': 'Shopping Charges'
       };
-      http.post(Uri.parse('https://api.stripe.com/v1/charges'), body: body, headers: headers)
+      http
+          .post(Uri.parse('https://api.stripe.com/v1/charges'),
+              body: body, headers: headers)
           .then((value) {
         print('ss - ${value.body}');
         if (value.body.toString().contains('error')) {
@@ -2085,7 +2115,8 @@ confirmPaymentStripe(payintent['id'], hearder);
         "attributes": {
           'payment_method': '${pmpa.data.id}',
           'client_key': '${pday.data.attributes.clientKey}',
-          'return_url':'$imageBaseUrl'+'resources/views/admin/paymentvia/payment.php',
+          'return_url':
+              '$imageBaseUrl' + 'resources/views/admin/paymentvia/payment.php',
         }
       }
     };
@@ -2209,8 +2240,10 @@ confirmPaymentStripe(payintent['id'], hearder);
           "amount": amount,
           "currency": "PHP",
           "redirect": {
-            "failed": "$imageBaseUrl"+"resources/views/admin/paymentvia/payment.php",
-            "success": "$imageBaseUrl"+"resources/views/admin/paymentvia/payment.php"
+            "failed": "$imageBaseUrl" +
+                "resources/views/admin/paymentvia/payment.php",
+            "success":
+                "$imageBaseUrl" + "resources/views/admin/paymentvia/payment.php"
           },
           "type": type
         }
