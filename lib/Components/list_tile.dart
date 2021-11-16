@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:user/Themes/colors.dart';
 
 class BuildListTile extends StatelessWidget {
   //final String image;
@@ -20,6 +21,7 @@ class BuildListTile extends StatelessWidget {
       leading: Icon(
         icon,
         size: 20.0,
+        color: kMainColor,
       ),
       title: Text(
         text,
