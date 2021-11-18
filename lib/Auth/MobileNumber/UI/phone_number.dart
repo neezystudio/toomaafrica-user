@@ -123,6 +123,7 @@ class PhoneNumberState extends State<PhoneNumber> {
         },
         child: SingleChildScrollView(
           child: Container(
+              color: kYellowColor,
               height: MediaQuery.of(context).size.height,
               child: Column(
                 children: [
@@ -132,20 +133,20 @@ class PhoneNumberState extends State<PhoneNumber> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: GestureDetector(
-                      onTap: (){
-Navigator.pushNamed(context, PageRoutes.selectlang);
+                      onTap: () {
+                        Navigator.pushNamed(context, PageRoutes.selectlang);
                       },
                       behavior: HitTestBehavior.opaque,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(locale.selectlanguage,style: TextStyle(
-                            color: kMainColor
-                      )),
+                          Text(locale.selectlanguage,
+                              style: TextStyle(color: kMainColor)),
                           Padding(
-                            padding: const EdgeInsets.only(left:5,right: 8),
-                            child: Icon(Icons.arrow_forward_ios,color: kMainColor),
+                            padding: const EdgeInsets.only(left: 5, right: 8),
+                            child: Icon(Icons.arrow_forward_ios,
+                                color: kMainColor),
                           )
                         ],
                       ),
@@ -253,7 +254,7 @@ Navigator.pushNamed(context, PageRoutes.selectlang);
                       alignment: Alignment.bottomCenter,
                       child: Image.asset(
                         "images/logos/Delivery.gif",
-                        fit: BoxFit.fill,//footer image
+                        fit: BoxFit.fill, //footer image
                       ),
                     ),
                   ),

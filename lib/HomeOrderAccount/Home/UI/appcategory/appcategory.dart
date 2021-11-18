@@ -72,7 +72,7 @@ class AppCategoryState extends State<AppCategory> {
     super.initState();
     hitBannerUrl();
     Timer(Duration(seconds: 1), () {
-      hitServices(context,AppLocalizations.of(context));
+      hitServices(context, AppLocalizations.of(context));
     });
     getCartCount();
   }
@@ -82,6 +82,7 @@ class AppCategoryState extends State<AppCategory> {
       isFetch = true;
     });
     var url = vendorBanner;
+   
     http.post(url, body: {'vendor_id': '$vendor_id'}).then((value) {
       if (value.statusCode == 200) {
         var jsonData = jsonDecode(value.body);
@@ -176,7 +177,7 @@ class AppCategoryState extends State<AppCategory> {
           child: Column(
             children: [
               Visibility(
-                visible: isSearchOpen,
+                  visible: isSearchOpen,
                   child: Column(
                     children: [
                       SizedBox(
@@ -217,83 +218,81 @@ class AppCategoryState extends State<AppCategory> {
                             setState(() {
                               categoryLists = categoryListsSearch
                                   .where((element) => element.category_name
-                                  .toString()
-                                  .toLowerCase()
-                                  .contains(value.toLowerCase()))
+                                      .toString()
+                                      .toLowerCase()
+                                      .contains(value.toLowerCase()))
                                   .toList();
                             });
                           },
                         ),
                       )
                     ],
-                  )
-              ),
+                  )),
               Visibility(
                   visible: !isSearchOpen,
                   child: CustomAppBar(
-                titleWidget: Text(
-                  pageTitle,
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-                actions: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 2.0),
-                    child: IconButton(
-                        icon: Icon(
-                          Icons.search,
-                          color: kHintColor,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            isSearchOpen = !isSearchOpen;
-                          });
-                        }),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 1.0),
-                    child: Stack(
-                      children: [
-                        IconButton(
-                            icon: ImageIcon(
-                              AssetImage('images/icons/ic_cart blk.png'),
+                    titleWidget: Text(
+                      pageTitle,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    actions: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 2.0),
+                        child: IconButton(
+                            icon: Icon(
+                              Icons.search,
+                              color: kHintColor,
                             ),
                             onPressed: () {
-                              if (isCartCount) {
-                                Navigator.pushNamed(
-                                    context, PageRoutes.viewCart)
-                                    .then((value) {
-                                  getCartCount();
-                                });
-                              } else {
-                                Toast.show(locale.noValueCartText, context,
-                                    duration: Toast.LENGTH_SHORT);
-                              }
+                              setState(() {
+                                isSearchOpen = !isSearchOpen;
+                              });
                             }),
-                        Positioned(
-                            right: 5,
-                            top: 2,
-                            child: Visibility(
-                              visible: isCartCount,
-                              child: CircleAvatar(
-                                minRadius: 4,
-                                maxRadius: 8,
-                                backgroundColor: kMainColor,
-                                child: Text(
-                                  '$cartCount',
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize: 7,
-                                      color: kWhiteColor,
-                                      fontWeight: FontWeight.w200),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 1.0),
+                        child: Stack(
+                          children: [
+                            IconButton(
+                                icon: ImageIcon(
+                                  AssetImage('images/icons/ic_cart blk.png'),
                                 ),
-                              ),
-                            ))
-                      ],
-                    ),
-                  ),
-                ],
-              )
-              ),
+                                onPressed: () {
+                                  if (isCartCount) {
+                                    Navigator.pushNamed(
+                                            context, PageRoutes.viewCart)
+                                        .then((value) {
+                                      getCartCount();
+                                    });
+                                  } else {
+                                    Toast.show(locale.noValueCartText, context,
+                                        duration: Toast.LENGTH_SHORT);
+                                  }
+                                }),
+                            Positioned(
+                                right: 5,
+                                top: 2,
+                                child: Visibility(
+                                  visible: isCartCount,
+                                  child: CircleAvatar(
+                                    minRadius: 4,
+                                    maxRadius: 8,
+                                    backgroundColor: kMainColor,
+                                    child: Text(
+                                      '$cartCount',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontSize: 7,
+                                          color: kWhiteColor,
+                                          fontWeight: FontWeight.w200),
+                                    ),
+                                  ),
+                                ))
+                          ],
+                        ),
+                      ),
+                    ],
+                  )),
               GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -345,7 +344,8 @@ class AppCategoryState extends State<AppCategory> {
                   child: Column(
                     children: [
                       Visibility(
-                        visible: (!isFetch && listImage.length == 0) ? false : true,
+                        visible:
+                            (!isFetch && listImage.length == 0) ? false : true,
                         child: Padding(
                           padding: EdgeInsets.only(top: 10, bottom: 5),
                           child: CarouselSlider(
@@ -358,199 +358,210 @@ class AppCategoryState extends State<AppCategory> {
                                 reverse: false,
                                 autoPlayInterval: Duration(seconds: 3),
                                 autoPlayAnimationDuration:
-                                Duration(milliseconds: 800),
+                                    Duration(milliseconds: 800),
                                 autoPlayCurve: Curves.fastOutSlowIn,
                                 scrollDirection: Axis.horizontal,
                               ),
                               items: (listImage != null && listImage.length > 0)
                                   ? listImage.map((e) {
-                                return Builder(
-                                  builder: (context) {
-                                    return InkWell(
-                                      onTap: () {},
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 5, vertical: 10),
-                                        child: Material(
-                                          elevation: 5,
-                                          borderRadius:
-                                          BorderRadius.circular(20.0),
-                                          clipBehavior: Clip.hardEdge,
-                                          child: Container(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width *
-                                                0.90,
+                                      return Builder(
+                                        builder: (context) {
+                                          return InkWell(
+                                            onTap: () {},
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 5, vertical: 10),
+                                              child: Material(
+                                                elevation: 5,
+                                                borderRadius:
+                                                    BorderRadius.circular(20.0),
+                                                clipBehavior: Clip.hardEdge,
+                                                child: Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.90,
 //                                            padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 10.0),
-                                            decoration: BoxDecoration(
-                                              color: white_color,
-                                              borderRadius:
-                                              BorderRadius.circular(20.0),
+                                                  decoration: BoxDecoration(
+                                                    color: white_color,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20.0),
+                                                  ),
+                                                  child: Image.network(
+                                                    imageBaseUrl +
+                                                        e.banner_image,
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
-                                            child: Image.network(
-                                              imageBaseUrl + e.banner_image,
-                                              fit: BoxFit.fill,
+                                          );
+                                        },
+                                      );
+                                    }).toList()
+                                  : listImages.map((e) {
+                                      return Builder(builder: (context) {
+                                        return Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.90,
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 5.0),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                          ),
+                                          child: Shimmer(
+                                            duration: Duration(seconds: 3),
+                                            //Default value
+                                            color: Colors.white,
+                                            //Default value
+                                            enabled: true,
+                                            //Default value
+                                            direction:
+                                                ShimmerDirection.fromLTRB(),
+                                            //Default Value
+                                            child: Container(
+                                              color: kTransparentColor,
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              }).toList()
-                                  : listImages.map((e) {
-                                return Builder(builder: (context) {
-                                  return Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.90,
-                                    margin:
-                                    EdgeInsets.symmetric(horizontal: 5.0),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                    ),
-                                    child: Shimmer(
-                                      duration: Duration(seconds: 3),
-                                      //Default value
-                                      color: Colors.white,
-                                      //Default value
-                                      enabled: true,
-                                      //Default value
-                                      direction: ShimmerDirection.fromLTRB(),
-                                      //Default Value
-                                      child: Container(
-                                        color: kTransparentColor,
-                                      ),
-                                    ),
-                                  );
-                                });
-                              }).toList()),
+                                        );
+                                      });
+                                    }).toList()),
                         ),
                       ),
                       (isSearchOpen ||
-                          categoryLists != null && categoryLists.length > 0)
+                              categoryLists != null && categoryLists.length > 0)
                           ? Padding(
-                        padding: EdgeInsets.only(top: 10, left: 5, right: 5),
-                        child: GridView.count(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 2.0,
-                          mainAxisSpacing: 2.0,
-                          controller: ScrollController(keepScrollOffset: false),
-                          shrinkWrap: true,
-                          primary: false,
-                          scrollDirection: Axis.vertical,
-                          children: categoryLists.map((e) {
-                            return GestureDetector(
-                              onTap: () {
-                                hitNavigator(
-                                    context,
-                                    pageTitle,
-                                    e.category_name,
-                                    e.category_id,
-                                    widget.distance);
-                              },
-                              behavior: HitTestBehavior.opaque,
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 3, horizontal: 3),
-                                color: kCardBackgroundColor,
-                                alignment: Alignment.center,
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      color: kWhiteColor),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 10, bottom: 10.0),
-                                        child: Container(
-                                          height: 100,
-                                          width: 120,
-                                          child: Image.network(
-                                            '${imageBaseUrl}${e.category_image}',
-                                            height: 100,
-                                            width: 120,
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Text(
+                              padding:
+                                  EdgeInsets.only(top: 10, left: 5, right: 5),
+                              child: GridView.count(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 2.0,
+                                mainAxisSpacing: 2.0,
+                                controller:
+                                    ScrollController(keepScrollOffset: false),
+                                shrinkWrap: true,
+                                primary: false,
+                                scrollDirection: Axis.vertical,
+                                children: categoryLists.map((e) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      hitNavigator(
+                                          context,
+                                          pageTitle,
                                           e.category_name,
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: black_color,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 16),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      )
-                          : (isNoCategoryTrue != true)
-                          ? Padding(
-                          padding: EdgeInsets.only(
-                              left: 10, right: 10, top: 20, bottom: 30),
-                          child: GridView.count(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 2.0,
-                            mainAxisSpacing: 2.0,
-                            controller:
-                            ScrollController(keepScrollOffset: false),
-                            shrinkWrap: true,
-                            primary: false,
-                            scrollDirection: Axis.vertical,
-                            children: categoryListsDemo.map((e) {
-                              return Container(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 3, horizontal: 3),
-                                color: kCardBackgroundColor,
-                                alignment: Alignment.center,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius:
-                                      BorderRadius.circular(5.0),
-                                      color: kWhiteColor),
-                                  child: Container(
-                                    color: white_color,
-                                    height: 120,
-                                    child: Shimmer(
-                                      duration: Duration(seconds: 3),
-                                      color: Colors.black38,
-                                      enabled: true,
-                                      direction: ShimmerDirection.fromLTRB(),
+                                          e.category_id,
+                                          widget.distance);
+                                    },
+                                    behavior: HitTestBehavior.opaque,
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 3, horizontal: 3),
+                                      color: kCardBackgroundColor,
+                                      alignment: Alignment.center,
                                       child: Container(
-                                        height: 120,
-                                        color: kTransparentColor,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            color: kWhiteColor),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 10, bottom: 10.0),
+                                              child: Container(
+                                                height: 100,
+                                                width: 120,
+                                                child: Image.network(
+                                                  '${imageBaseUrl}${e.category_image}',
+                                                  height: 100,
+                                                  width: 120,
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Text(
+                                                e.category_name,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: black_color,
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 16),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
+                                  );
+                                }).toList(),
+                              ),
+                            )
+                          : (isNoCategoryTrue != true)
+                              ? Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 10, right: 10, top: 20, bottom: 30),
+                                  child: GridView.count(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 2.0,
+                                    mainAxisSpacing: 2.0,
+                                    controller: ScrollController(
+                                        keepScrollOffset: false),
+                                    shrinkWrap: true,
+                                    primary: false,
+                                    scrollDirection: Axis.vertical,
+                                    children: categoryListsDemo.map((e) {
+                                      return Container(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 3, horizontal: 3),
+                                        color: kCardBackgroundColor,
+                                        alignment: Alignment.center,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                              color: kWhiteColor),
+                                          child: Container(
+                                            color: white_color,
+                                            height: 120,
+                                            child: Shimmer(
+                                              duration: Duration(seconds: 3),
+                                              color: Colors.black38,
+                                              enabled: true,
+                                              direction:
+                                                  ShimmerDirection.fromLTRB(),
+                                              child: Container(
+                                                height: 120,
+                                                color: kTransparentColor,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ))
+                              : Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.height - 120,
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    '${locale.noCategoryFoundStoreText}${widget.pageTitle}',
+                                    style: TextStyle(
+                                        color: kMainColor,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 18),
                                   ),
                                 ),
-                              );
-                            }).toList(),
-                          ))
-                          : Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height - 120,
-                        alignment: Alignment.center,
-                        child: Text(
-                          '${locale.noCategoryFoundStoreText}${widget.pageTitle}',
-                          style: TextStyle(
-                              color: kMainColor,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 18),
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -586,7 +597,7 @@ class AppCategoryState extends State<AppCategory> {
     );
   }
 
-  void hitServices(BuildContext context,locale) async {
+  void hitServices(BuildContext context, locale) async {
     var url = categoryList;
     var response =
         await http.post(url, body: {'vendor_id': vendor_id.toString()});
@@ -611,14 +622,17 @@ class AppCategoryState extends State<AppCategory> {
             categoryLists.clear();
             categoryLists = [];
           });
-          Toast.show('${locale.noCategoryFoundStoreText} ${widget.pageTitle}', context,
+          Toast.show(
+              '${locale.noCategoryFoundStoreText} ${widget.pageTitle}', context,
               duration: Toast.LENGTH_LONG);
         }
       }
     } on Exception catch (_) {
-      Toast.show('${locale.noCategoryFoundStoreText} ${widget.pageTitle}', context, duration: Toast.LENGTH_LONG);
+      Toast.show(
+          '${locale.noCategoryFoundStoreText} ${widget.pageTitle}', context,
+          duration: Toast.LENGTH_LONG);
       Timer(Duration(seconds: 5), () {
-        hitServices(context,locale);
+        hitServices(context, locale);
       });
     }
   }

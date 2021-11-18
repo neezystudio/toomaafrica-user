@@ -11,6 +11,7 @@ import 'package:user/Components/bottom_bar.dart';
 import 'package:user/HomeOrderAccount/Account/UI/ListItems/saved_addresses_page.dart';
 import 'package:user/HomeOrderAccount/home_order_account.dart';
 import 'package:user/Locale/locales.dart';
+import 'package:user/Maps/UI/location_page.dart';
 import 'package:user/Pages/payment_method.dart';
 import 'package:user/Routes/routes.dart';
 import 'package:user/Themes/colors.dart';
@@ -69,12 +70,13 @@ class _ViewCartState extends State<ViewCart> {
   // }
 
   void prepareData(firstDate) {
-
     // lastDate = toDateMonthYear(firstDate.add(Duration(days: 9)));
-    lastDate = DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(firstDate.add(Duration(days: 9))));
+    lastDate = DateFormat('dd/MM/yyyy').parse(
+        DateFormat('dd/MM/yyyy').format(firstDate.add(Duration(days: 9))));
     dateList.add(firstDate);
-    for(int i=0;i<9;i++){
-      dateList.add(DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(firstDate.add(Duration(days: i+1)))));
+    for (int i = 0; i < 9; i++) {
+      dateList.add(DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy')
+          .format(firstDate.add(Duration(days: i + 1)))));
     }
     // dateList = getDateList(firstDate, lastDate);
   }
@@ -149,7 +151,7 @@ class _ViewCartState extends State<ViewCart> {
                   double.parse('${addressDelivery.delivery_charge}');
               getCatC();
             });
-          }else{
+          } else {
             isCartFetch = false;
             addressDelivery = null;
             deliveryCharge = 0.0;
@@ -172,7 +174,8 @@ class _ViewCartState extends State<ViewCart> {
           deliveryCharge = 0.0;
           getCatC();
         });
-        Toast.show(locale.addressNotFound, context, duration: Toast.LENGTH_SHORT);
+        Toast.show(locale.addressNotFound, context,
+            duration: Toast.LENGTH_SHORT);
       }
     }).catchError((e) {
       setState(() {
@@ -190,23 +193,25 @@ class _ViewCartState extends State<ViewCart> {
     var size = MediaQuery.of(context).size;
     final double itemHeight = (size.height - kToolbarHeight - 24) / 7;
     final double itemWidth = size.width / 2;
-    if(!isEnteredFirst){
+    if (!isEnteredFirst) {
       setState(() {
         isEnteredFirst = true;
       });
-      getAddress(context,locale);
+      getAddress(context, locale);
       // firstDate = toDateMonthYear(DateTime.now());
       // prepareData(firstDate);
       // dateTimeSt =
       // '${firstDate.year}-${(firstDate.month.toString().length == 1) ? '0' + firstDate.month.toString() : firstDate.month}-${firstDate.day}';
       // lastDate = toDateMonthYear(firstDate.add(Duration(days: 9)));
       print('${DateFormat('dd/MM/yyyy').format(DateTime.now())}');
-      firstDate = DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(DateTime.now()));
+      firstDate = DateFormat('dd/MM/yyyy')
+          .parse(DateFormat('dd/MM/yyyy').format(DateTime.now()));
       prepareData(firstDate);
       dateTimeSt =
-      '${firstDate.year}-${(firstDate.month.toString().length == 1) ? '0' + firstDate.month.toString() : firstDate.month}-${firstDate.day}';
+          '${firstDate.year}-${(firstDate.month.toString().length == 1) ? '0' + firstDate.month.toString() : firstDate.month}-${firstDate.day}';
       // lastDate = toDateMonthYear(firstDate.add(Duration(days: 9)));
-      lastDate = DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(firstDate.add(Duration(days: 9))));
+      lastDate = DateFormat('dd/MM/yyyy').parse(
+          DateFormat('dd/MM/yyyy').format(firstDate.add(Duration(days: 9))));
       getStoreName();
       getCartItem();
       getCatC();
@@ -216,8 +221,8 @@ class _ViewCartState extends State<ViewCart> {
     }
     return Scaffold(
       appBar: AppBar(
-        title:
-            Text(locale.confirmOrderText, style: Theme.of(context).textTheme.bodyText1),
+        title: Text(locale.confirmOrderText,
+            style: Theme.of(context).textTheme.bodyText1),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 10, top: 10, bottom: 10),
@@ -547,7 +552,7 @@ class _ViewCartState extends State<ViewCart> {
                                     style: Theme.of(context).textTheme.caption,
                                   ),
                                   Text(
-                                    '$currency ${double.parse(double.parse('$totalAmount').toStringAsFixed(2))  - double.parse(double.parse('$deliveryCharge').toStringAsFixed(2))}',
+                                    '$currency ${double.parse(double.parse('$totalAmount').toStringAsFixed(2)) - double.parse(double.parse('$deliveryCharge').toStringAsFixed(2))}',
                                     style: Theme.of(context).textTheme.caption,
                                   ),
                                 ]),
@@ -647,12 +652,55 @@ class _ViewCartState extends State<ViewCart> {
                                                   .getInstance();
                                           String vendorId =
                                               prefs.getString('vendor_id');
+                                          print('chnaged address tapped');
+                                          // Navigator.of(context).push(
+                                          //     MaterialPageRoute(
+                                          //         builder: (context) {
+                                          //   return SavedAddressesPage(vendorId);
+                                          // })).then((value) {
+                                          //   getAddress(context,locale);
+                                          // });
+                                          //todo get location here
                                           Navigator.of(context).push(
                                               MaterialPageRoute(
                                                   builder: (context) {
-                                            return SavedAddressesPage(vendorId);
+                                            return LocationPage(0.0, 0.0);
                                           })).then((value) {
-                                            getAddress(context,locale);
+                                            if (value != null) {
+                                              print('${value.toString()}');
+                                              setState(() {
+                                              addressDelivery =
+                                                    ShowAddressNew(
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "");
+                                                   
+                                                addressDelivery.address =
+                                                    value.address;
+                                                addressDelivery.lat = value.lat;
+                                                addressDelivery.lng = value.lng;
+                                              });
+                                            }
+                                          }).catchError((e) {
+                                            print(e);
                                           });
                                         },
                                         child: Text(locale.changeText,
@@ -690,7 +738,7 @@ class _ViewCartState extends State<ViewCart> {
                                 setState(() {
                                   showDialogBox = true;
                                 });
-                                createCart(context,locale);
+                                createCart(context, locale);
                               }),
                         ],
                       ),
@@ -739,7 +787,9 @@ class _ViewCartState extends State<ViewCart> {
                             //     MaterialPageRoute(builder: (context) {
                             //   return HomeOrderAccount();
                             // }), (Route<dynamic> route) => false);
-                            Navigator.of(context).pushNamedAndRemoveUntil(PageRoutes.homeOrderAccountPage, (Route<dynamic> route) => false);
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                PageRoutes.homeOrderAccountPage,
+                                (Route<dynamic> route) => false);
                           },
                           child: Text(
                             locale.shopNowText,
@@ -818,9 +868,7 @@ class _ViewCartState extends State<ViewCart> {
             Toast.show(locale.noValueInTheCart, context,
                 duration: Toast.LENGTH_SHORT);
           } else {
-            Toast.show(
-                locale.noAddressFound,
-                context,
+            Toast.show(locale.noAddressFound, context,
                 duration: Toast.LENGTH_SHORT);
           }
         }
@@ -835,12 +883,12 @@ class _ViewCartState extends State<ViewCart> {
       setState(() {
         showDialogBox = false;
       });
-      Toast.show(locale.noValueCartText, context,
-          duration: Toast.LENGTH_SHORT);
+      Toast.show(locale.noValueCartText, context, duration: Toast.LENGTH_SHORT);
     }
   }
 
-  void getVendorPayment(String vendorId, CartDetail details, String orderArray) async {
+  void getVendorPayment(
+      String vendorId, CartDetail details, String orderArray) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
       currency = preferences.getString('curency');

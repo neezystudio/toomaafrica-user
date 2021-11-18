@@ -9,6 +9,7 @@ import 'package:user/Components/bottom_bar.dart';
 import 'package:user/HomeOrderAccount/Account/UI/ListItems/saved_addresses_page.dart';
 import 'package:user/HomeOrderAccount/home_order_account.dart';
 import 'package:user/Locale/locales.dart';
+import 'package:user/Maps/UI/location_page.dart';
 import 'package:user/Routes/routes.dart';
 import 'package:user/Themes/colors.dart';
 import 'package:user/baseurlp/baseurl.dart';
@@ -76,7 +77,6 @@ class _RestuarantViewCartState extends State<RestuarantViewCart> {
     // streamController.stream.listen((event) {
     //   print('${event}');
     // });
-
   }
 
   void dispose() {
@@ -170,24 +170,26 @@ class _RestuarantViewCartState extends State<RestuarantViewCart> {
       print('${value.statusCode} ${value.body}');
       if (value.statusCode == 200) {
         var jsonData = jsonDecode(value.body);
-        if (jsonData['status'] == "1" && jsonData['data']!=null && jsonData['data']!='null') {
+        if (jsonData['status'] == "1" &&
+            jsonData['data'] != null &&
+            jsonData['data'] != 'null') {
           AddressSelected addressWelcome = AddressSelected.fromJson(jsonData);
-          if(addressWelcome.data!=null){
+          if (addressWelcome.data != null) {
             setState(() {
               isCartFetch = false;
               addressSelected = addressWelcome;
               addressDelivery = addressWelcome.data;
-              deliveryCharge = double.parse('${addressDelivery.delivery_charge}');
+              deliveryCharge =
+                  double.parse('${addressDelivery.delivery_charge}');
               getCatC();
             });
-          }else{
+          } else {
             isCartFetch = false;
             addressSelected = null;
             addressDelivery = null;
             deliveryCharge = 0.0;
             getCatC();
           }
-
         } else {
           setState(() {
             isCartFetch = false;
@@ -207,7 +209,8 @@ class _RestuarantViewCartState extends State<RestuarantViewCart> {
           deliveryCharge = 0.0;
           getCatC();
         });
-        Toast.show(locale.noAddressFound, context, duration: Toast.LENGTH_SHORT);
+        Toast.show(locale.noAddressFound, context,
+            duration: Toast.LENGTH_SHORT);
       }
     }).catchError((e) {
       setState(() {
@@ -221,29 +224,28 @@ class _RestuarantViewCartState extends State<RestuarantViewCart> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     var locale = AppLocalizations.of(context);
-    if(!isEnteredFirst){
+    if (!isEnteredFirst) {
       setState(() {
         isEnteredFirst = true;
       });
-      getAddress(context,locale);
+      getAddress(context, locale);
       getStoreName();
       getCartItem();
       getCatC();
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text(locale.checkOutText, style: Theme.of(context).textTheme.bodyText1),
+        title: Text(locale.checkOutText,
+            style: Theme.of(context).textTheme.bodyText1),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 10, top: 10, bottom: 10),
             child: RaisedButton(
               onPressed: () {
-                if(!showDialogBox){
+                if (!showDialogBox) {
                   clearCart();
                 }
               },
@@ -395,7 +397,7 @@ class _RestuarantViewCartState extends State<RestuarantViewCart> {
                                     style: Theme.of(context).textTheme.caption,
                                   ),
                                   Text(
-                                    '$currency ${double.parse(double.parse('$totalAmount').toStringAsFixed(2))  - double.parse(double.parse('$deliveryCharge').toStringAsFixed(2))}',
+                                    '$currency ${double.parse(double.parse('$totalAmount').toStringAsFixed(2)) - double.parse(double.parse('$deliveryCharge').toStringAsFixed(2))}',
                                     style: Theme.of(context).textTheme.caption,
                                   ),
                                 ]),
@@ -497,14 +499,57 @@ class _RestuarantViewCartState extends State<RestuarantViewCart> {
 //                                    fontWeight: FontWeight.bold)),
                                       Spacer(),
                                       GestureDetector(
-                                        onTap: () async{
-                                          SharedPreferences prefs = await SharedPreferences.getInstance();
-                                          String vendorId = prefs.getString('res_vendor_id');
-                                          Navigator.of(context)
-                                              .push(MaterialPageRoute(builder: (context) {
-                                            return SavedAddressesPage(vendorId);
+                                        onTap: () async {
+                                          SharedPreferences prefs =
+                                              await SharedPreferences
+                                                  .getInstance();
+                                          String vendorId =
+                                              prefs.getString('res_vendor_id');
+                                          // Navigator.of(context)
+                                          //     .push(MaterialPageRoute(builder: (context) {
+                                          //   return SavedAddressesPage(vendorId);
+                                          // })).then((value) {
+                                          //   getAddress(context,locale);
+                                          // });
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) {
+                                            return LocationPage(0.0, 0.0);
                                           })).then((value) {
-                                            getAddress(context,locale);
+                                            if (value != null) {
+                                              print('${value.toString()}');
+                                              setState(() {
+                                                addressDelivery =
+                                                    ShowAddressNew(
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "");
+                                                addressDelivery.address =
+                                                    value.address;
+                                                addressDelivery.lat = value.lat;
+                                                addressDelivery.lng = value.lng;
+                                              });
+                                            }
+                                          }).catchError((e) {
+                                            print(e);
                                           });
                                         },
                                         child: Text(locale.changeText,
@@ -529,8 +574,8 @@ class _RestuarantViewCartState extends State<RestuarantViewCart> {
                                           .textTheme
                                           .caption
                                           .copyWith(
-                                          fontSize: 11.7,
-                                          color: Color(0xffb7b7b7)))
+                                              fontSize: 11.7,
+                                              color: Color(0xffb7b7b7)))
                                 ],
                               ),
                             ),
@@ -542,7 +587,7 @@ class _RestuarantViewCartState extends State<RestuarantViewCart> {
                                 setState(() {
                                   showDialogBox = true;
                                 });
-                                createCart(context,locale);
+                                createCart(context, locale);
                               }),
                         ],
                       ),
@@ -551,21 +596,21 @@ class _RestuarantViewCartState extends State<RestuarantViewCart> {
                 ),
                 Positioned.fill(
                     child: Visibility(
-                      visible: showDialogBox,
-                      child: GestureDetector(
-                        onTap: () {},
-                        behavior: HitTestBehavior.opaque,
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height - 100,
-                          alignment: Alignment.center,
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: CircularProgressIndicator(),
-                          ),
-                        ),
+                  visible: showDialogBox,
+                  child: GestureDetector(
+                    onTap: () {},
+                    behavior: HitTestBehavior.opaque,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height - 100,
+                      alignment: Alignment.center,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: CircularProgressIndicator(),
                       ),
-                    )),
+                    ),
+                  ),
+                )),
               ],
             )
           : Container(
@@ -591,7 +636,9 @@ class _RestuarantViewCartState extends State<RestuarantViewCart> {
                             //     MaterialPageRoute(builder: (context) {
                             //   return HomeOrderAccount();
                             // }), (Route<dynamic> route) => false);
-                            Navigator.of(context).pushNamedAndRemoveUntil(PageRoutes.homeOrderAccountPage, (Route<dynamic> route) => false);
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                PageRoutes.homeOrderAccountPage,
+                                (Route<dynamic> route) => false);
                           },
                           child: Text(
                             locale.shopNowText,
@@ -679,8 +726,7 @@ class _RestuarantViewCartState extends State<RestuarantViewCart> {
           Toast.show(locale.noValueCartText, context,
               duration: Toast.LENGTH_SHORT);
         } else {
-          Toast.show(locale.noAddressFound,
-              context,
+          Toast.show(locale.noAddressFound, context,
               duration: Toast.LENGTH_SHORT);
         }
       }
@@ -688,8 +734,7 @@ class _RestuarantViewCartState extends State<RestuarantViewCart> {
       setState(() {
         showDialogBox = false;
       });
-      Toast.show(locale.noValueCartText, context,
-          duration: Toast.LENGTH_SHORT);
+      Toast.show(locale.noValueCartText, context, duration: Toast.LENGTH_SHORT);
     }
   }
 
@@ -712,8 +757,13 @@ class _RestuarantViewCartState extends State<RestuarantViewCart> {
           PaymentVia tagObjs = PaymentVia.fromJson(tagObjsJson);
 
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return PaymentRestPage(vendorId, details.order_id, details.cart_id,
-                double.parse(details.total_price.toString()), tagObjs,addressDelivery);
+            return PaymentRestPage(
+                vendorId,
+                details.order_id,
+                details.cart_id,
+                double.parse(details.total_price.toString()),
+                tagObjs,
+                addressDelivery);
           }));
         }
       }
@@ -777,7 +827,7 @@ class _RestuarantViewCartState extends State<RestuarantViewCart> {
             padding: const EdgeInsets.only(left: 7.0, top: 10.3),
             child: ListTile(
               // contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-              title:Row(
+              title: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -851,7 +901,6 @@ class _RestuarantViewCartState extends State<RestuarantViewCart> {
                         ),
                       ),
                       // Spacer(),
-
                     ]),
               ),
             )),

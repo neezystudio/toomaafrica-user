@@ -10,11 +10,13 @@ import 'package:user/Components/bottom_bar.dart';
 import 'package:user/HomeOrderAccount/Account/UI/ListItems/saved_addresses_page.dart';
 import 'package:user/HomeOrderAccount/home_order_account.dart';
 import 'package:user/Locale/locales.dart';
+import 'package:user/Maps/UI/location_page.dart';
 import 'package:user/Routes/routes.dart';
 import 'package:user/Themes/colors.dart';
 import 'package:user/baseurlp/baseurl.dart';
 import 'package:user/bean/address.dart';
 import 'package:user/bean/cartdetails.dart';
+import 'package:user/bean/latlng.dart';
 import 'package:user/bean/orderarray.dart';
 import 'package:user/bean/paymentstatus.dart';
 import 'package:user/bean/resturantbean/restaurantcartitem.dart';
@@ -93,12 +95,13 @@ class _PharmaViewCartState extends State<PharmaViewCart> {
   // }
 
   void prepareData(firstDate) {
-
     // lastDate = toDateMonthYear(firstDate.add(Duration(days: 9)));
-    lastDate = DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(firstDate.add(Duration(days: 9))));
+    lastDate = DateFormat('dd/MM/yyyy').parse(
+        DateFormat('dd/MM/yyyy').format(firstDate.add(Duration(days: 9))));
     dateList.add(firstDate);
-    for(int i=0;i<9;i++){
-      dateList.add(DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(firstDate.add(Duration(days: i+1)))));
+    for (int i = 0; i < 9; i++) {
+      dateList.add(DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy')
+          .format(firstDate.add(Duration(days: i + 1)))));
     }
     // dateList = getDateList(firstDate, lastDate);
   }
@@ -154,18 +157,19 @@ class _PharmaViewCartState extends State<PharmaViewCart> {
     DatabaseHelper db = DatabaseHelper.instance;
     db.getPharmaProduct().then((value) {
       List<RestaurantCartItem> tagObjs =
-      value.map((tagJson) => RestaurantCartItem.fromJson(tagJson)).toList();
+          value.map((tagJson) => RestaurantCartItem.fromJson(tagJson)).toList();
       setState(() {
         cartListI = List.from(tagObjs);
       });
       print('cart value :- ${cartListI.toString()}');
       for (int i = 0; i < cartListI.length; i++) {
         print('${cartListI[i].varient_id}');
-        db.getAddOnListPharma(int.parse('${cartListI[i].varient_id}'))
+        db
+            .getAddOnListPharma(int.parse('${cartListI[i].varient_id}'))
             .then((values) {
           print('${values}');
           List<AddonCartItem> tagObjsd =
-          values.map((tagJson) => AddonCartItem.fromJson(tagJson)).toList();
+              values.map((tagJson) => AddonCartItem.fromJson(tagJson)).toList();
           if (tagObjsd != null) {
             setState(() {
               cartListI[i].addon = tagObjsd;
@@ -182,41 +186,41 @@ class _PharmaViewCartState extends State<PharmaViewCart> {
   void getCatC() async {
     DatabaseHelper db = DatabaseHelper.instance;
     db.calculateTotalpharma().then((value) {
-      db.calculateTotalPharmaAdon().then((valued){
+      db.calculateTotalPharmaAdon().then((valued) {
         var tagObjsJson = value as List;
         var tagObjsJsond = valued as List;
         setState(() {
           if (value != null) {
             dynamic totalAmount_1 = tagObjsJson[0]['Total'];
             print('T--${totalAmount_1}');
-            if(valued!=null){
+            if (valued != null) {
               dynamic totalAmount_2 = tagObjsJsond[0]['Total'];
               print('T--${totalAmount_2}');
               if (totalAmount_2 == null) {
                 if (totalAmount_1 == null) {
                   totalAmount = 0.0;
                 } else {
-                  totalAmount = double.parse('${totalAmount_1}') + deliveryCharge;
+                  totalAmount =
+                      double.parse('${totalAmount_1}') + deliveryCharge;
                 }
               } else {
-                totalAmount = double.parse('${totalAmount_1}')+double.parse('${totalAmount_2}')+ deliveryCharge;
+                totalAmount = double.parse('${totalAmount_1}') +
+                    double.parse('${totalAmount_2}') +
+                    deliveryCharge;
               }
-            }else{
+            } else {
               if (totalAmount_1 == null) {
                 totalAmount = 0.0;
               } else {
                 totalAmount = double.parse('${totalAmount_1}') + deliveryCharge;
               }
             }
-
           } else {
             totalAmount = 0.0;
 //          deliveryCharge = 0.0;
           }
         });
       });
-
-
     });
   }
 
@@ -235,17 +239,20 @@ class _PharmaViewCartState extends State<PharmaViewCart> {
       print('${value.statusCode} ${value.body}');
       if (value.statusCode == 200) {
         var jsonData = jsonDecode(value.body);
-        if (jsonData['status'] == "1" && jsonData['data']!=null && jsonData['data']!='null') {
+        if (jsonData['status'] == "1" &&
+            jsonData['data'] != null &&
+            jsonData['data'] != 'null') {
           AddressSelected addressWelcome = AddressSelected.fromJson(jsonData);
-          if(addressWelcome.data!=null){
+          if (addressWelcome.data != null) {
             setState(() {
               isCartFetch = false;
               addressSelected = addressWelcome;
               addressDelivery = addressWelcome.data;
-              deliveryCharge = double.parse('${addressDelivery.delivery_charge}');
+              deliveryCharge =
+                  double.parse('${addressDelivery.delivery_charge}');
               getCatC();
             });
-          }else {
+          } else {
             setState(() {
               isCartFetch = false;
               addressSelected = null;
@@ -297,22 +304,24 @@ class _PharmaViewCartState extends State<PharmaViewCart> {
     final double itemWidth = size.width / 2;
     double h = MediaQuery.of(context).textScaleFactor;
     print(h);
-    if(!isEnteredFirst){
+    if (!isEnteredFirst) {
       setState(() {
         isEnteredFirst = true;
       });
-      getAddress(context,locale);
+      getAddress(context, locale);
       getStoreName();
       getCartItem();
       getCatC();
       // firstDate = toDateMonthYear(DateTime.now());
       print('${DateFormat('dd/MM/yyyy').format(DateTime.now())}');
-      firstDate = DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(DateTime.now()));
+      firstDate = DateFormat('dd/MM/yyyy')
+          .parse(DateFormat('dd/MM/yyyy').format(DateTime.now()));
       prepareData(firstDate);
       dateTimeSt =
-      '${firstDate.year}-${(firstDate.month.toString().length == 1) ? '0' + firstDate.month.toString() : firstDate.month}-${firstDate.day}';
+          '${firstDate.year}-${(firstDate.month.toString().length == 1) ? '0' + firstDate.month.toString() : firstDate.month}-${firstDate.day}';
       // lastDate = toDateMonthYear(firstDate.add(Duration(days: 9)));
-      lastDate = DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(firstDate.add(Duration(days: 9))));
+      lastDate = DateFormat('dd/MM/yyyy').parse(
+          DateFormat('dd/MM/yyyy').format(firstDate.add(Duration(days: 9))));
       getStoreName();
       dynamic date =
           '${firstDate.day}-${(firstDate.month.toString().length == 1) ? '0' + firstDate.month.toString() : firstDate.month}-${firstDate.year}';
@@ -321,14 +330,14 @@ class _PharmaViewCartState extends State<PharmaViewCart> {
 
     return Scaffold(
       appBar: AppBar(
-        title:
-            Text(locale.checkOutText, style: Theme.of(context).textTheme.bodyText1),
+        title: Text(locale.checkOutText,
+            style: Theme.of(context).textTheme.bodyText1),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 10, top: 10, bottom: 10),
             child: RaisedButton(
               onPressed: () {
-                if(!showDialogBox){
+                if (!showDialogBox) {
                   clearCart();
                 }
               },
@@ -350,515 +359,582 @@ class _PharmaViewCartState extends State<PharmaViewCart> {
       ),
       body: (!isCartFetch && cartListI != null && cartListI.length > 0)
           ? Stack(
-        children: <Widget>[
-          Column(
-            children: [
-              Expanded(
-                flex: 1,
-                child: ListView(
-                  shrinkWrap: true,
-                  primary: true,
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.all(20.0),
-                      color: kCardBackgroundColor,
-                      child: Text(storeName,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6
-                              .copyWith(
-                              color: Color(0xff616161),
-                              letterSpacing: 0.67)),
-                    ),
-                    (cartListI != null && cartListI.length > 0)
-                        ? ListView.separated(
-                        primary: false,
+              children: <Widget>[
+                Column(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: ListView(
                         shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return cartOrderItemListTile(
-                            context,
-                            '${cartListI[index].product_name}',
-                            (double.parse('${cartListI[index].price}') /int.parse('${cartListI[index].add_qnty}')),
-                            int.parse('${cartListI[index].add_qnty}'),
-                            cartListI[index].qnty,
-                            cartListI[index].unit,
-                                () => setState(() {
-                              int addQ = int.parse(
-                                  '${cartListI[index].add_qnty}');
-                              var price_d = double.parse(
-                                  '${cartListI[index].price}') /
-                                  addQ;
-                              addQ--;
-                              cartListI[index].price =
-                              (price_d * addQ);
-                              cartListI[index].add_qnty = addQ;
-                              addOrMinusProduct(
-                                  cartListI[index].product_name,
-                                  cartListI[index].unit,
-                                  cartListI[index].price,
-                                  cartListI[index].qnty,
-                                  cartListI[index].add_qnty,
-                                  cartListI[index].varient_id,
-                                  index,
-                                  price_d);
-                            }),
-                                () => setState(() {
-                              int addQ = int.parse(
-                                  '${cartListI[index].add_qnty}');
-                              var price_d = double.parse(
-                                  '${cartListI[index].price}') /
-                                  addQ;
-                              addQ++;
-                              cartListI[index].price =
-                              (price_d * addQ);
-                              cartListI[index].add_qnty = addQ;
-                              addOrMinusProduct(
-                                  cartListI[index].product_name,
-                                  cartListI[index].unit,
-                                  cartListI[index].price,
-                                  cartListI[index].qnty,
-                                  cartListI[index].add_qnty,
-                                  cartListI[index].varient_id,
-                                  index,
-                                  price_d);
-                            }),
-                            cartListI[index].addon,
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return Divider(
+                        primary: true,
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.all(20.0),
+                            color: kCardBackgroundColor,
+                            child: Text(storeName,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(
+                                        color: Color(0xff616161),
+                                        letterSpacing: 0.67)),
+                          ),
+                          (cartListI != null && cartListI.length > 0)
+                              ? ListView.separated(
+                                  primary: false,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    return cartOrderItemListTile(
+                                      context,
+                                      '${cartListI[index].product_name}',
+                                      (double.parse(
+                                              '${cartListI[index].price}') /
+                                          int.parse(
+                                              '${cartListI[index].add_qnty}')),
+                                      int.parse('${cartListI[index].add_qnty}'),
+                                      cartListI[index].qnty,
+                                      cartListI[index].unit,
+                                      () => setState(() {
+                                        int addQ = int.parse(
+                                            '${cartListI[index].add_qnty}');
+                                        var price_d = double.parse(
+                                                '${cartListI[index].price}') /
+                                            addQ;
+                                        addQ--;
+                                        cartListI[index].price =
+                                            (price_d * addQ);
+                                        cartListI[index].add_qnty = addQ;
+                                        addOrMinusProduct(
+                                            cartListI[index].product_name,
+                                            cartListI[index].unit,
+                                            cartListI[index].price,
+                                            cartListI[index].qnty,
+                                            cartListI[index].add_qnty,
+                                            cartListI[index].varient_id,
+                                            index,
+                                            price_d);
+                                      }),
+                                      () => setState(() {
+                                        int addQ = int.parse(
+                                            '${cartListI[index].add_qnty}');
+                                        var price_d = double.parse(
+                                                '${cartListI[index].price}') /
+                                            addQ;
+                                        addQ++;
+                                        cartListI[index].price =
+                                            (price_d * addQ);
+                                        cartListI[index].add_qnty = addQ;
+                                        addOrMinusProduct(
+                                            cartListI[index].product_name,
+                                            cartListI[index].unit,
+                                            cartListI[index].price,
+                                            cartListI[index].qnty,
+                                            cartListI[index].add_qnty,
+                                            cartListI[index].varient_id,
+                                            index,
+                                            price_d);
+                                      }),
+                                      cartListI[index].addon,
+                                    );
+                                  },
+                                  separatorBuilder: (context, index) {
+                                    return Divider(
+                                      color: kCardBackgroundColor,
+                                      thickness: 1.0,
+                                    );
+                                  },
+                                  itemCount: cartListI.length)
+                              : Container(),
+                          Divider(
+                            color: kCardBackgroundColor,
+                            thickness: 6.7,
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(10.0),
+                            color: kCardBackgroundColor,
+                            child: Text(locale.dateSlotText,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(
+                                        color: Color(0xff616161),
+                                        letterSpacing: 0.67)),
+                          ),
+                          Divider(
+                            color: kCardBackgroundColor,
+                            thickness: 6.7,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            height: 35,
+                            width: MediaQuery.of(context).size.width,
+                            padding: EdgeInsets.only(right: 5, left: 5),
+                            child: ListView.builder(
+                                itemCount: dateList.length,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  var dateCount1 =
+                                      '${dateList[index].day.toString()}/${(dateList[index].month.toString().length == 1) ? '0' + dateList[index].month.toString() : dateList[index].month}/${dateList[index].year}';
+                                  DateFormat formatter =
+                                      DateFormat('dd MMM yyyy');
+                                  var dateCount =
+                                      formatter.format(dateList[index]);
+                                  return GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        idd1 = -1;
+                                        idd = index;
+                                        dateTimeSt =
+                                            '${dateList[index].year}-${(dateList[index].month.toString().length == 1) ? '0' + dateList[index].month.toString() : dateList[index].month}-${dateList[index].day}';
+                                        dynamic date =
+                                            '${dateList[index].day}-${(dateList[index].month.toString().length == 1) ? '0' + dateList[index].month.toString() : dateList[index].month}-${dateList[index].year}';
+
+                                        hitDateCounter(date);
+                                        print('${dateTimeSt}');
+                                      });
+                                    },
+                                    child: Container(
+                                      padding:
+                                          EdgeInsets.only(right: 10, left: 10),
+                                      margin:
+                                          EdgeInsets.only(right: 5, left: 5),
+                                      height: 30,
+                                      // width: MediaQuery.of(context).size.width / 3,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          color: (idd == index)
+                                              ? kMainColor
+                                              : kWhiteColor,
+                                          shape: BoxShape.rectangle,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          border: Border.all(
+                                              color: (idd == index)
+                                                  ? kMainColor
+                                                  : kMainColor)),
+                                      child: Text(
+                                        '${dateCount}',
+                                        style: TextStyle(
+                                            color: (idd == index)
+                                                ? kWhiteColor
+                                                : kMainTextColor,
+                                            fontSize: 14),
+                                      ),
+                                    ),
+                                  );
+                                }),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Divider(
+                            color: kCardBackgroundColor,
+                            thickness: 6.7,
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(10.0),
+                            color: kCardBackgroundColor,
+                            child: Text(locale.timeSlotText,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(
+                                        color: Color(0xff616161),
+                                        letterSpacing: 0.67)),
+                          ),
+                          Divider(
+                            color: kCardBackgroundColor,
+                            thickness: 6.7,
+                          ),
+                          (!isFetchingTime && radioList.length > 0)
+                              ? Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  padding: EdgeInsets.only(right: 5, left: 5),
+                                  child: GridView.builder(
+                                    itemCount: radioList.length,
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      crossAxisSpacing: 4.0,
+                                      mainAxisSpacing: 4.0,
+                                      childAspectRatio:
+                                          (itemWidth / itemHeight),
+                                    ),
+                                    controller: ScrollController(
+                                        keepScrollOffset: false),
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.vertical,
+                                    itemBuilder: (context, index) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            idd1 = index;
+                                            print('${radioList[idd1]}');
+                                          });
+                                        },
+                                        child: SizedBox(
+                                          height: 100,
+                                          child: Container(
+                                            margin: EdgeInsets.only(
+                                                right: 5,
+                                                left: 5,
+                                                top: 5,
+                                                bottom: 5),
+                                            height: 30,
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                                color: (idd1 == index)
+                                                    ? kMainColor
+                                                    : kWhiteColor,
+                                                shape: BoxShape.rectangle,
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                border: Border.all(
+                                                    color: (idd1 == index)
+                                                        ? kMainColor
+                                                        : kMainColor)),
+                                            child: Text(
+                                              '${radioList[index].toString()}',
+                                              textScaleFactor: 1.0,
+                                              style: TextStyle(
+                                                color: (idd1 == index)
+                                                    ? kWhiteColor
+                                                    : kMainTextColor,
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                )
+                              : Container(
+                                  height: 120,
+                                  width: MediaQuery.of(context).size.width,
+                                  alignment: Alignment.center,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      isFetchingTime
+                                          ? CircularProgressIndicator()
+                                          : Container(
+                                              width: 0.5,
+                                            ),
+                                      isFetchingTime
+                                          ? SizedBox(
+                                              width: 10,
+                                            )
+                                          : Container(
+                                              width: 0.5,
+                                            ),
+                                      (isFetchingTime)
+                                          ? Text(
+                                              locale.fetchingTimeSlotText,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: kMainTextColor),
+                                            )
+                                          : Expanded(
+                                              child: Text(
+                                                locale.noTimeSlotText,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: kMainTextColor),
+                                              ),
+                                            )
+                                    ],
+                                  ),
+                                ),
+                          Divider(
+                            color: kCardBackgroundColor,
+                            thickness: 6.7,
+                          ),
+                          Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 20.0),
+                            child: Text(locale.paymentInfoText,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(color: kDisabledColor)),
+                            color: Colors.white,
+                          ),
+                          Container(
+                            color: Colors.white,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 4.0, horizontal: 20.0),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    locale.subTotalText,
+                                    style: Theme.of(context).textTheme.caption,
+                                  ),
+                                  Text(
+                                    '$currency ${double.parse(double.parse('$totalAmount').toStringAsFixed(2)) - double.parse(double.parse('$deliveryCharge').toStringAsFixed(2))}',
+                                    style: Theme.of(context).textTheme.caption,
+                                  ),
+                                ]),
+                          ),
+                          Divider(
                             color: kCardBackgroundColor,
                             thickness: 1.0,
-                          );
-                        },
-                        itemCount: cartListI.length)
-                        : Container(),
-                    Divider(
-                      color: kCardBackgroundColor,
-                      thickness: 6.7,
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(10.0),
-                      color: kCardBackgroundColor,
-                      child: Text(locale.dateSlotText,
-                          style: Theme.of(context).textTheme.headline6.copyWith(
-                              color: Color(0xff616161), letterSpacing: 0.67)),
-                    ),
-                    Divider(
-                      color: kCardBackgroundColor,
-                      thickness: 6.7,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      height: 35,
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.only(right: 5, left: 5),
-                      child: ListView.builder(
-                          itemCount: dateList.length,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            var dateCount1 =
-                                '${dateList[index].day.toString()}/${(dateList[index].month.toString().length == 1) ? '0' + dateList[index].month.toString() : dateList[index].month}/${dateList[index].year}';
-                            DateFormat formatter = DateFormat('dd MMM yyyy');
-                            var dateCount = formatter.format(dateList[index]);
-                            return GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  idd1 = -1;
-                                  idd = index;
-                                  dateTimeSt =
-                                  '${dateList[index].year}-${(dateList[index].month.toString().length == 1) ? '0' + dateList[index].month.toString() : dateList[index].month}-${dateList[index].day}';
-                                  dynamic date =
-                                      '${dateList[index].day}-${(dateList[index].month.toString().length == 1) ? '0' + dateList[index].month.toString() : dateList[index].month}-${dateList[index].year}';
-
-                                  hitDateCounter(date);
-                                  print('${dateTimeSt}');
-                                });
-                              },
-                              child: Container(
-                                padding: EdgeInsets.only(right: 10, left: 10),
-                                margin: EdgeInsets.only(right: 5, left: 5),
-                                height: 30,
-                                // width: MediaQuery.of(context).size.width / 3,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color: (idd == index)
-                                        ? kMainColor
-                                        : kWhiteColor,
-                                    shape: BoxShape.rectangle,
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(
-                                        color: (idd == index)
-                                            ? kMainColor
-                                            : kMainColor)),
-                                child: Text(
-                                  '${dateCount}',
-                                  style: TextStyle(
-                                      color: (idd == index)
-                                          ? kWhiteColor
-                                          : kMainTextColor,
-                                      fontSize: 14),
-                                ),
-                              ),
-                            );
-                          }),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Divider(
-                      color: kCardBackgroundColor,
-                      thickness: 6.7,
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(10.0),
-                      color: kCardBackgroundColor,
-                      child: Text(locale.timeSlotText,
-                          style: Theme.of(context).textTheme.headline6.copyWith(
-                              color: Color(0xff616161), letterSpacing: 0.67)),
-                    ),
-                    Divider(
-                      color: kCardBackgroundColor,
-                      thickness: 6.7,
-                    ),
-                    (!isFetchingTime && radioList.length > 0)
-                        ? Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.only(right: 5, left: 5),
-                      child: GridView.builder(
-                        itemCount: radioList.length,
-                        gridDelegate:
-                        SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 4.0,
-                          mainAxisSpacing: 4.0,
-                          childAspectRatio: (itemWidth / itemHeight),
-                        ),
-                        controller:
-                        ScrollController(keepScrollOffset: false),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                idd1 = index;
-                                print('${radioList[idd1]}');
-                              });
-                            },
-                            child: SizedBox(
-                              height: 100,
-                              child: Container(
-                                margin: EdgeInsets.only(
-                                    right: 5, left: 5, top: 5, bottom: 5),
-                                height: 30,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color: (idd1 == index)
-                                        ? kMainColor
-                                        : kWhiteColor,
-                                    shape: BoxShape.rectangle,
-                                    borderRadius:
-                                    BorderRadius.circular(20),
-                                    border: Border.all(
-                                        color: (idd1 == index)
-                                            ? kMainColor
-                                            : kMainColor)),
-                                child: Text(
-                                  '${radioList[index].toString()}',
-                                  textScaleFactor: 1.0,
-                                  style: TextStyle(
-                                      color: (idd1 == index)
-                                          ? kWhiteColor
-                                          : kMainTextColor,
-                                      fontSize: 12,),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    )
-                        : Container(
-                      height: 120,
-                      width: MediaQuery.of(context).size.width,
-                      alignment: Alignment.center,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          isFetchingTime
-                              ? CircularProgressIndicator()
-                              : Container(
-                            width: 0.5,
                           ),
-                          isFetchingTime
-                              ? SizedBox(
-                            width: 10,
-                          )
-                              : Container(
-                            width: 0.5,
+                          Container(
+                            color: Colors.white,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 4.0, horizontal: 20.0),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    locale.serviceFeeText,
+                                    style: Theme.of(context).textTheme.caption,
+                                  ),
+                                  Text(
+                                    '$currency ${deliveryCharge.toStringAsFixed(2)}',
+                                    style: Theme.of(context).textTheme.caption,
+                                  ),
+                                ]),
                           ),
-                          (isFetchingTime)
-                              ? Text(
-                            locale.fetchingTimeSlotText,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: kMainTextColor),
-                          )
-                              : Expanded(
-                            child: Text(
-                              locale.noTimeSlotText,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                  color: kMainTextColor),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      color: kCardBackgroundColor,
-                      thickness: 6.7,
-                    ),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 20.0),
-                      child: Text(locale.paymentInfoText,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6
-                              .copyWith(color: kDisabledColor)),
-                      color: Colors.white,
-                    ),
-                    Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.symmetric(
-                          vertical: 4.0, horizontal: 20.0),
-                      child: Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              locale.subTotalText,
-                              style: Theme.of(context).textTheme.caption,
-                            ),
-                            Text(
-                              '$currency ${double.parse(double.parse('$totalAmount').toStringAsFixed(2))  - double.parse(double.parse('$deliveryCharge').toStringAsFixed(2))}',
-                              style: Theme.of(context).textTheme.caption,
-                            ),
-                          ]),
-                    ),
-                    Divider(
-                      color: kCardBackgroundColor,
-                      thickness: 1.0,
-                    ),
-                    Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.symmetric(
-                          vertical: 4.0, horizontal: 20.0),
-                      child: Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              locale.serviceFeeText,
-                              style: Theme.of(context).textTheme.caption,
-                            ),
-                            Text(
-                              '$currency ${deliveryCharge.toStringAsFixed(2)}',
-                              style: Theme.of(context).textTheme.caption,
-                            ),
-                          ]),
-                    ),
-                    Divider(
-                      color: kCardBackgroundColor,
-                      thickness: 1.0,
-                    ),
-                    Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.symmetric(
-                          vertical: 4.0, horizontal: 20.0),
-                      child: Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              locale.amountPayText,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .caption
-                                  .copyWith(fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              '$currency $totalAmount',
-                              style: Theme.of(context).textTheme.caption,
-                            ),
-                          ]),
-                    ),
-                    Container(
-                      height: 15.0,
-                      color: kCardBackgroundColor,
-                    ),
-                  ],
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Container(
-                      color: Colors.white,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            left: 20.0,
-                            right: 20.0,
-                            top: 13.0,
-                            bottom: 13.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.location_on,
-                                  color: Color(0xffc4c8c1),
-                                  size: 13.3,
-                                ),
-                                SizedBox(
-                                  width: 11.0,
-                                ),
-                                Text(locale.deliveringToText,
+                          Divider(
+                            color: kCardBackgroundColor,
+                            thickness: 1.0,
+                          ),
+                          Container(
+                            color: Colors.white,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 4.0, horizontal: 20.0),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    locale.amountPayText,
                                     style: Theme.of(context)
                                         .textTheme
                                         .caption
-                                        .copyWith(
-                                        color: kDisabledColor,
-                                        fontWeight: FontWeight.bold)),
-                                Spacer(),
-                                GestureDetector(
-                                  onTap: () async{
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    String vendorId = prefs.getString('ph_vendor_id');
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(builder: (context) {
-                                      return SavedAddressesPage(vendorId);
-                                    })).then((value) {
-                                      getAddress(context,locale);
-                                    });
-                                  },
-                                  child: Text(locale.changeText,
+                                        .copyWith(fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    '$currency $totalAmount',
+                                    style: Theme.of(context).textTheme.caption,
+                                  ),
+                                ]),
+                          ),
+                          Container(
+                            height: 15.0,
+                            color: kCardBackgroundColor,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Container(
+                            color: Colors.white,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  left: 20.0,
+                                  right: 20.0,
+                                  top: 13.0,
+                                  bottom: 13.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.location_on,
+                                        color: Color(0xffc4c8c1),
+                                        size: 13.3,
+                                      ),
+                                      SizedBox(
+                                        width: 11.0,
+                                      ),
+                                      Text(locale.deliveringToText,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .caption
+                                              .copyWith(
+                                                  color: kDisabledColor,
+                                                  fontWeight: FontWeight.bold)),
+                                      Spacer(),
+                                      GestureDetector(
+                                        onTap: () async {
+                                          SharedPreferences prefs =
+                                              await SharedPreferences
+                                                  .getInstance();
+                                          String vendorId =
+                                              prefs.getString('ph_vendor_id');
+                                          // Navigator.of(context)
+                                          //     .push(MaterialPageRoute(builder: (context) {
+                                          //   return SavedAddressesPage(vendorId);
+                                          // })).then((value) {
+                                          //   getAddress(context,locale);
+                                          // });
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) {
+                                            return LocationPage(0.0, 0.0);
+                                          })).then((value) {
+                                            if (value != null) {
+                                              print('${value.toString()}');
+                                              setState(() {
+                                                addressDelivery =
+                                                    ShowAddressNew(
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "");
+                                                addressDelivery.address =
+                                                    value.address;
+                                                addressDelivery.lat = value.lat;
+                                                addressDelivery.lng = value.lng;
+                                              });
+                                            }
+                                          }).catchError((e) {
+                                            print(e);
+                                          });
+                                        },
+                                        child: Text(locale.changeText,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .caption
+                                                .copyWith(
+                                                    color: kMainColor,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 13.0,
+                                  ),
+                                  Text(
+                                      addressDelivery != null
+                                          ? '${addressDelivery.address != null ? '${addressDelivery.address})' : ''} \n ${(addressDelivery.delivery_charge != null) ? addressDelivery.delivery_charge : ''}'
+                                          : '',
                                       style: Theme.of(context)
                                           .textTheme
                                           .caption
                                           .copyWith(
-                                          color: kMainColor,
-                                          fontWeight:
-                                          FontWeight.bold)),
-                                ),
-                              ],
+                                              fontSize: 11.7,
+                                              color: Color(0xffb7b7b7)))
+                                ],
+                              ),
                             ),
-                            SizedBox(
-                              height: 13.0,
-                            ),
-                            Text(
-                                addressDelivery != null
-                                    ? '${addressDelivery.address != null ? '${addressDelivery.address})' : ''} \n ${(addressDelivery.delivery_charge != null) ? addressDelivery.delivery_charge : ''}'
-                                    : '',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .caption
-                                    .copyWith(
-                                    fontSize: 11.7,
-                                    color: Color(0xffb7b7b7)))
-                          ],
-                        ),
+                          ),
+                          BottomBar(
+                              text: "${locale.payText} $currency "
+                                  "$totalAmount",
+                              onTap: () {
+                                setState(() {
+                                  showDialogBox = true;
+                                });
+                                createCart(context, locale);
+                              }),
+                        ],
                       ),
                     ),
-                    BottomBar(
-                        text: "${locale.payText} $currency "
-                            "$totalAmount",
-                        onTap: () {
-                          setState(() {
-                            showDialogBox = true;
-                          });
-                          createCart(context,locale);
-                        }),
                   ],
                 ),
-              ),
-            ],
-          ),
-          Positioned.fill(
-              child: Visibility(
-                visible: showDialogBox,
-                child: GestureDetector(
-                  onTap: () {},
-                  behavior: HitTestBehavior.opaque,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height - 100,
-                    alignment: Alignment.center,
-                    child: Align(
+                Positioned.fill(
+                    child: Visibility(
+                  visible: showDialogBox,
+                  child: GestureDetector(
+                    onTap: () {},
+                    behavior: HitTestBehavior.opaque,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height - 100,
                       alignment: Alignment.center,
-                      child: CircularProgressIndicator(),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: CircularProgressIndicator(),
+                      ),
                     ),
                   ),
-                ),
-              )),
-        ],
-      )
-          : Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height - 64,
-        alignment: Alignment.center,
-        child: isCartFetch
-            ? CircularProgressIndicator()
-            : Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  '${locale.noValueCartText}\n${locale.clickShopNowText}',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20),
                 )),
-            RaisedButton(
-              onPressed: () {
-                // clearCart();
-                // Navigator.pushAndRemoveUntil(context,
-                //     MaterialPageRoute(builder: (context) {
-                //       return HomeOrderAccount();
-                //     }), (Route<dynamic> route) => false);
-                Navigator.of(context).pushNamedAndRemoveUntil(PageRoutes.homeOrderAccountPage, (Route<dynamic> route) => false);
-              },
-              child: Text(
-                locale.shopNowText,
-                style: TextStyle(
-                    color: kWhiteColor,
-                    fontWeight: FontWeight.w400),
-              ),
-              color: kMainColor,
-              highlightColor: kMainColor,
-              focusColor: kMainColor,
-              splashColor: kMainColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0),
-              ),
+              ],
             )
-          ],
-        ),
-      ),
+          : Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height - 64,
+              alignment: Alignment.center,
+              child: isCartFetch
+                  ? CircularProgressIndicator()
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Text(
+                              '${locale.noValueCartText}\n${locale.clickShopNowText}',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 20),
+                            )),
+                        RaisedButton(
+                          onPressed: () {
+                            // clearCart();
+                            // Navigator.pushAndRemoveUntil(context,
+                            //     MaterialPageRoute(builder: (context) {
+                            //       return HomeOrderAccount();
+                            //     }), (Route<dynamic> route) => false);
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                PageRoutes.homeOrderAccountPage,
+                                (Route<dynamic> route) => false);
+                          },
+                          child: Text(
+                            locale.shopNowText,
+                            style: TextStyle(
+                                color: kWhiteColor,
+                                fontWeight: FontWeight.w400),
+                          ),
+                          color: kMainColor,
+                          highlightColor: kMainColor,
+                          focusColor: kMainColor,
+                          splashColor: kMainColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                        )
+                      ],
+                    ),
+            ),
     );
   }
 
@@ -892,7 +968,7 @@ class _PharmaViewCartState extends State<PharmaViewCart> {
           'time_slot': '${radioList[idd1]}',
           'order_array': orderArray.toString(),
           'order_array1':
-          (orderAddonArray.length > 0) ? orderAddonArray.toString() : '',
+              (orderAddonArray.length > 0) ? orderAddonArray.toString() : '',
           'ui_type': ui_type
         }).then((value) {
           print('${value.statusCode} ${value.body}');
@@ -930,8 +1006,7 @@ class _PharmaViewCartState extends State<PharmaViewCart> {
           Toast.show(locale.noValueCartText, context,
               duration: Toast.LENGTH_SHORT);
         } else {
-          Toast.show(locale.noAddressFound,
-              context,
+          Toast.show(locale.noAddressFound, context,
               duration: Toast.LENGTH_SHORT);
         }
       }
@@ -939,8 +1014,7 @@ class _PharmaViewCartState extends State<PharmaViewCart> {
       setState(() {
         showDialogBox = false;
       });
-      Toast.show(locale.noValueCartText, context,
-          duration: Toast.LENGTH_SHORT);
+      Toast.show(locale.noValueCartText, context, duration: Toast.LENGTH_SHORT);
     }
   }
 
@@ -963,8 +1037,13 @@ class _PharmaViewCartState extends State<PharmaViewCart> {
           PaymentVia tagObjs = PaymentVia.fromJson(tagObjsJson);
 
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return PaymentPharmaPage(vendorId, details.order_id, details.cart_id,
-                double.parse(details.total_price.toString()), tagObjs,addressDelivery);
+            return PaymentPharmaPage(
+                vendorId,
+                details.order_id,
+                details.cart_id,
+                double.parse(details.total_price.toString()),
+                tagObjs,
+                addressDelivery);
           }));
         }
       }
@@ -1011,16 +1090,16 @@ class _PharmaViewCartState extends State<PharmaViewCart> {
   }
 
   Widget cartOrderItemListTile(
-      BuildContext context,
-      String title,
-      dynamic price,
-      int itemCount,
-      dynamic qnty,
-      dynamic unit,
-      Function onPressedMinus,
-      Function onPressedPlus,
-      List<AddonCartItem> addon,
-      ) {
+    BuildContext context,
+    String title,
+    dynamic price,
+    int itemCount,
+    dynamic qnty,
+    dynamic unit,
+    Function onPressedMinus,
+    Function onPressedPlus,
+    List<AddonCartItem> addon,
+  ) {
     String selected;
     return Column(
       children: <Widget>[
@@ -1143,16 +1222,16 @@ class _PharmaViewCartState extends State<PharmaViewCart> {
   void clearCart() async {
     DatabaseHelper db = DatabaseHelper.instance;
     db.deleteAllPharma().then((value) {
-      db.deleteAllAddonPharma().then((value){
+      db.deleteAllAddonPharma().then((value) {
         cartListI.clear();
         getCatC();
       });
     });
   }
 
-  void deleteAddOn(addonid) async{
+  void deleteAddOn(addonid) async {
     DatabaseHelper db = DatabaseHelper.instance;
-    db.deleteAddOnIdPharma(int.parse(addonid)).then((value){
+    db.deleteAddOnIdPharma(int.parse(addonid)).then((value) {
       getCartItem();
       getCatC();
     });
