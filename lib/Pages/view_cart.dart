@@ -653,55 +653,55 @@ class _ViewCartState extends State<ViewCart> {
                                           String vendorId =
                                               prefs.getString('vendor_id');
                                           print('chnaged address tapped');
-                                          // Navigator.of(context).push(
-                                          //     MaterialPageRoute(
-                                          //         builder: (context) {
-                                          //   return SavedAddressesPage(vendorId);
-                                          // })).then((value) {
-                                          //   getAddress(context,locale);
-                                          // });
-                                          //todo get location here
                                           Navigator.of(context).push(
                                               MaterialPageRoute(
                                                   builder: (context) {
-                                            return LocationPage(0.0, 0.0);
+                                            return SavedAddressesPage(vendorId);
                                           })).then((value) {
-                                            if (value != null) {
-                                              print('${value.toString()}');
-                                              setState(() {
-                                              addressDelivery =
-                                                    ShowAddressNew(
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "");
-                                                   
-                                                addressDelivery.address =
-                                                    value.address;
-                                                addressDelivery.lat = value.lat;
-                                                addressDelivery.lng = value.lng;
-                                              });
-                                            }
-                                          }).catchError((e) {
-                                            print(e);
+                                            getAddress(context, locale);
                                           });
+                                          // //todo get location here
+                                          // Navigator.of(context).push(
+                                          //     MaterialPageRoute(
+                                          //         builder: (context) {
+                                          //   return LocationPage(0.0, 0.0);
+                                          // })).then((value) {
+                                          //   if (value != null) {
+                                          //     print('${value.toString()}');
+                                          //     setState(() {
+                                          //     addressDelivery =
+                                          //           ShowAddressNew(
+                                          //               "",
+                                          //               "",
+                                          //               "",
+                                          //               "",
+                                          //               "",
+                                          //               "",
+                                          //               "",
+                                          //               "",
+                                          //               "",
+                                          //               "",
+                                          //               "",
+                                          //               "",
+                                          //               "",
+                                          //               "",
+                                          //               "",
+                                          //               "",
+                                          //               "",
+                                          //               "",
+                                          //               "",
+                                          //               "",
+                                          //               "");
+
+                                          //       addressDelivery.address =
+                                          //           value.address;
+                                          //       addressDelivery.lat = value.lat;
+                                          //       addressDelivery.lng = value.lng;
+                                          //     });
+                                          //   }
+                                          // }).catchError((e) {
+                                          //   print(e);
+                                          // });
                                         },
                                         child: Text(locale.changeText,
                                             style: Theme.of(context)
