@@ -123,7 +123,7 @@ class PhoneNumberState extends State<PhoneNumber> {
         },
         child: SingleChildScrollView(
           child: Container(
-              color: kYellowColor,
+              //color: kYellowColor,
               height: MediaQuery.of(context).size.height,
               child: Column(
                 children: [
@@ -162,8 +162,8 @@ class PhoneNumberState extends State<PhoneNumber> {
                         width: widthRender,
                         child: Image.asset(
                           "images/logos/logo_user.png",
-                          height: 130.0,
-                          width: 99.7,
+                          height: 70.0,
+                          width: 50.7,
                         ),
                       ),
                       SizedBox(
@@ -188,14 +188,14 @@ class PhoneNumberState extends State<PhoneNumber> {
                             Text(locale.bodyText1,
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context).textTheme.bodyText1),
-                            Text(
-                              locale.bodyText2,
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  .copyWith(fontWeight: FontWeight.normal),
-                            ),
+                            // Text(
+                            //   locale.bodyText2,
+                            //   textAlign: TextAlign.center,
+                            //   style: Theme.of(context)
+                            //       .textTheme
+                            //       .bodyText1
+                            //       .copyWith(fontWeight: FontWeight.normal),
+                            // ),
                           ],
                         ),
                       ),
