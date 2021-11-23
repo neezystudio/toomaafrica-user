@@ -11,6 +11,7 @@ import 'package:user/HomeOrderAccount/Home/UI/home.dart';
 import 'package:user/HomeOrderAccount/Home/UI/order_placed_map.dart';
 import 'package:user/HomeOrderAccount/Order/UI/order_page.dart';
 import 'package:user/HomeOrderAccount/home_order_account.dart';
+import 'package:user/Maps/UI/location_page.dart';
 import 'package:user/Pages/paymentwebviewmongo.dart';
 import 'package:user/Pages/paymongocredcard.dart';
 import 'package:user/Pages/stripecard.dart';
@@ -65,6 +66,7 @@ class PageRoutes {
 
   Map<String, WidgetBuilder> routes() {
     return {
+      locationPage: (context) => LocationPage(0, 0),
       homeOrderAccountPage: (context) => HomeOrderAccount(),
       homePage: (context) => HomePage(),
       orderPage: (context) => OrderPage(),

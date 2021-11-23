@@ -1,0 +1,14 @@
+steps:
+- name: 'cirrusci/flutter:stable'
+  entrypoint: bash
+  #args: ['flutter', 'build', 'appbundle', '&&', 'cp', 'build/app/outputs/bundle/release/app.aab', '/workspace/driver.aab']
+  args:
+  - '-c'
+  - |
+    flutter build appbundle --no-sound-null-safety 
+    cp build/app/outputs/bundle/release/app-release.aab /workspace/user.aab
+timeout: 1800s
+artifacts:
+  objects:
+    location: 'gs://shikilia-appbundles/'
+    paths: ['/workspace/user.aab']

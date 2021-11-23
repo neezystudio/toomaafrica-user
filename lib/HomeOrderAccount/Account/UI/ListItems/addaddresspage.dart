@@ -78,7 +78,7 @@ class AddAddressState extends State<AddAddressPage> {
     if (permission == LocationPermission.whileInUse ||
         permission == LocationPermission.always) {
       bool isLocationServiceEnableds =
-      await Geolocator.isLocationServiceEnabled();
+          await Geolocator.isLocationServiceEnabled();
       if (isLocationServiceEnableds) {
         Position position = await Geolocator.getCurrentPosition(
             desiredAccuracy: LocationAccuracy.high);
@@ -93,16 +93,19 @@ class AddAddressState extends State<AddAddressPage> {
     }
   }
 
-  void hitAddressPlace() async{
+  void hitAddressPlace() async {
     // setState(() {
     //   this.lat = latd;
     //   this.lng = lngd;
     // });
     print('$lat - $lng');
-    final coordinates = new Coordinates(lat,lng);
+    final coordinates = new Coordinates(lat, lng);
     await Geocoder.local
         .findAddressesFromCoordinates(coordinates)
         .then((value) {
+      print("in geocoding"); //todo remove this
+      print(value[0]);
+
       for (int i = 0; i < value.length; i++) {
         print('${value[i].locality}');
         if (value[i].locality != null && value[i].locality.length > 1) {
@@ -128,8 +131,7 @@ class AddAddressState extends State<AddAddressPage> {
           break;
         }
       }
-    }).catchError((e) {
-    });
+    }).catchError((e) {});
   }
 
   void getCityList() async {
@@ -143,7 +145,7 @@ class AddAddressState extends State<AddAddressPage> {
         if (jsonData['status'] == "1") {
           var tagObjsJson = jsonDecode(value.body)['data'] as List;
           List<CityList> tagObjs =
-          tagObjsJson.map((tagJson) => CityList.fromJson(tagJson)).toList();
+              tagObjsJson.map((tagJson) => CityList.fromJson(tagJson)).toList();
           setState(() {
             cityListt.clear();
             cityListt = tagObjs;
@@ -164,7 +166,7 @@ class AddAddressState extends State<AddAddressPage> {
         if (jsonData['status'] == "1") {
           var tagObjsJson = jsonDecode(value.body)['data'] as List;
           List<AreaList> tagObjs =
-          tagObjsJson.map((tagJson) => AreaList.fromJson(tagJson)).toList();
+              tagObjsJson.map((tagJson) => AreaList.fromJson(tagJson)).toList();
           setState(() {
             areaList.clear();
             areaList = tagObjs;
@@ -209,7 +211,7 @@ class AddAddressState extends State<AddAddressPage> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height:
-        MediaQuery.of(context).size.height - (appbarsize + statusBarHeight),
+            MediaQuery.of(context).size.height - (appbarsize + statusBarHeight),
         child: Column(
           children: [
             Expanded(
@@ -256,12 +258,11 @@ class AddAddressState extends State<AddAddressPage> {
                             height: 15,
                           ),
                           Container(
-                            width: MediaQuery.of(context).size.width*0.95,
+                            width: MediaQuery.of(context).size.width * 0.95,
                             padding: EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),
-                              border:
-                              Border.all(color: kHintColor, width: 1),
+                              border: Border.all(color: kHintColor, width: 1),
                             ),
                             child: DropdownButton<CityList>(
                               hint: Text(
@@ -298,12 +299,11 @@ class AddAddressState extends State<AddAddressPage> {
                             height: 15,
                           ),
                           Container(
-                            width: MediaQuery.of(context).size.width*0.95,
+                            width: MediaQuery.of(context).size.width * 0.95,
                             padding: EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),
-                              border:
-                              Border.all(color: kHintColor, width: 1),
+                              border: Border.all(color: kHintColor, width: 1),
                             ),
                             child: DropdownButton<AreaList>(
                               hint: Text(
@@ -343,7 +343,7 @@ class AddAddressState extends State<AddAddressPage> {
                                 width: MediaQuery.of(context).size.width * 0.45,
                                 child: EntryField(
                                     textCapitalization:
-                                    TextCapitalization.words,
+                                        TextCapitalization.words,
                                     hint: locale.housenotext,
                                     controller: houseController,
                                     maxLines: 1,
@@ -357,7 +357,7 @@ class AddAddressState extends State<AddAddressPage> {
                                 width: MediaQuery.of(context).size.width * 0.45,
                                 child: EntryField(
                                     textCapitalization:
-                                    TextCapitalization.words,
+                                        TextCapitalization.words,
                                     hint: locale.enteryourpincode,
                                     controller: pincodeController,
                                     border: OutlineInputBorder(
@@ -381,7 +381,7 @@ class AddAddressState extends State<AddAddressPage> {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide:
-                                  BorderSide(color: kHintColor, width: 1),
+                                      BorderSide(color: kHintColor, width: 1),
                                 )),
                           ),
                           SizedBox(
@@ -397,7 +397,7 @@ class AddAddressState extends State<AddAddressPage> {
                                 minLines: 2,
                                 onTap: () {
                                   Navigator.pushNamed(
-                                      context, PageRoutes.searchloc)
+                                          context, PageRoutes.searchloc)
                                       .then((value) {
                                     if (value != null) {
                                       BackLatLng back = value;
@@ -413,7 +413,7 @@ class AddAddressState extends State<AddAddressPage> {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide:
-                                  BorderSide(color: kHintColor, width: 1),
+                                      BorderSide(color: kHintColor, width: 1),
                                 )),
                           ),
                           SizedBox(
@@ -431,7 +431,7 @@ class AddAddressState extends State<AddAddressPage> {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide:
-                                  BorderSide(color: kHintColor, width: 1),
+                                      BorderSide(color: kHintColor, width: 1),
                                 )),
                           ),
                         ],
@@ -439,44 +439,44 @@ class AddAddressState extends State<AddAddressPage> {
                     ),
                     Positioned.fill(
                         child: Visibility(
-                          visible: showDialogBox,
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height - 100,
-                              alignment: Alignment.center,
-                              child: SizedBox(
-                                height: 120,
-                                width: MediaQuery.of(context).size.width * 0.9,
-                                child: Material(
-                                  elevation: 5,
-                                  borderRadius: BorderRadius.circular(20),
-                                  clipBehavior: Clip.hardEdge,
-                                  child: Container(
-                                    color: white_color,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        CircularProgressIndicator(),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Text(
-                                          locale.loadingPleaseWait,
-                                          style: TextStyle(
-                                              color: kMainTextColor,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 20),
-                                        )
-                                      ],
+                      visible: showDialogBox,
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height - 100,
+                          alignment: Alignment.center,
+                          child: SizedBox(
+                            height: 120,
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            child: Material(
+                              elevation: 5,
+                              borderRadius: BorderRadius.circular(20),
+                              clipBehavior: Clip.hardEdge,
+                              child: Container(
+                                color: white_color,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    CircularProgressIndicator(),
+                                    SizedBox(
+                                      width: 20,
                                     ),
-                                  ),
+                                    Text(
+                                      locale.loadingPleaseWait,
+                                      style: TextStyle(
+                                          color: kMainTextColor,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 20),
+                                    )
+                                  ],
                                 ),
                               ),
                             ),
                           ),
-                        )),
+                        ),
+                      ),
+                    )),
                   ],
                 ),
               ),

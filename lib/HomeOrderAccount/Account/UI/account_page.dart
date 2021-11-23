@@ -13,7 +13,8 @@ class AccountPage extends StatelessWidget {
     var locale = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(locale.myAccount, style: Theme.of(context).textTheme.bodyText1),
+        title: Text(locale.myAccount,
+            style: Theme.of(context).textTheme.bodyText1),
         centerTitle: true,
       ),
       body: Account(),
@@ -77,33 +78,40 @@ class _AccountState extends State<Account> {
         ),
         AddressTile(),
         BuildListTile(
-            image: 'images/account/ic_menu_wallet.png',
+            //image: 'images/account/ic_menu_wallet.png',
+            icon: Icons.account_balance,
             text: locale.walletText,
             onTap: () => Navigator.pushNamed(context, PageRoutes.wallet)),
         BuildListTile(
-            image: 'images/account/reward.png',
+            //image: 'images/account/reward.png',
+            icon: Icons.wallet_giftcard,
             text: locale.rewardsText,
             onTap: () => Navigator.pushNamed(context, PageRoutes.reward)),
         BuildListTile(
-            image: 'images/account/reffernearn.png',
+            //image: 'images/account/reffernearn.png',
+            icon: Icons.money,
             text: locale.referEarnText,
             onTap: () => Navigator.pushNamed(context, PageRoutes.reffernearn)),
         BuildListTile(
-            image: 'images/account/ic_menu_tncact.png',
+            //image: 'images/account/ic_menu_tncact.png',
+            icon: Icons.assignment,
             text: locale.tnc,
             onTap: () => Navigator.pushNamed(context, PageRoutes.tncPage)),
         BuildListTile(
-            image: 'images/account/ic_menu_supportact.png',
+            //image: 'images/account/ic_menu_supportact.png',
+            icon: Icons.support,
             text: locale.support,
             onTap: () => Navigator.pushNamed(context, PageRoutes.supportPage,
                 arguments: number)),
         BuildListTile(
-          image: 'images/account/ic_menu_aboutact.png',
+          //image: 'images/account/ic_menu_aboutact.png',
+          icon: Icons.info,
           text: locale.aboutUs,
           onTap: () => Navigator.pushNamed(context, PageRoutes.aboutUsPage),
         ),
         BuildListTile(
-          image: 'images/account/ic_menu_aboutact.png',
+          //image: 'images/account/ic_menu_aboutact.png',
+          icon: Icons.settings_sharp,
           text: locale.settingheding,
           onTap: () => Navigator.pushNamed(context, PageRoutes.settings),
         ),
@@ -118,7 +126,8 @@ class AddressTile extends StatelessWidget {
   Widget build(BuildContext context) {
     var locale = AppLocalizations.of(context);
     return BuildListTile(
-        image: 'images/account/ic_menu_addressact.png',
+        // image: 'images/account/ic_menu_addressact.png',
+        icon: Icons.location_on,
         text: locale.savedAddresses,
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
@@ -133,7 +142,8 @@ class LogoutTile extends StatelessWidget {
   Widget build(BuildContext context) {
     var locale = AppLocalizations.of(context);
     return BuildListTile(
-      image: 'images/account/ic_menu_logoutact.png',
+      // image: 'images/account/ic_menu_logoutact.png',
+      icon: Icons.logout,
       text: locale.logout,
       onTap: () {
         showDialog(
@@ -164,7 +174,10 @@ class LogoutTile extends StatelessWidget {
                         //     MaterialPageRoute(builder: (context) {
                         //   return LoginNavigator();
                         // }), (Route<dynamic> route) => false);
-                        Navigator.pushNamedAndRemoveUntil(context,PageRoutes.loginRoot, (Route<dynamic> route) => false);
+                        Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            PageRoutes.loginRoot,
+                            (Route<dynamic> route) => false);
                       })
                 ],
               );

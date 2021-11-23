@@ -132,7 +132,7 @@ class AppLocalizations {
   }
 
   String get bodyText1 {
-    return _localizedValues[locale.languageCode]['Delivering almost'];
+    return _localizedValues[locale.languageCode]['The Perfect Shopping App'];
   }
 
   String get bodyText2 {

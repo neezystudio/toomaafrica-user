@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "412516532302-6u3eod6730ifcmt643a347tqfenctv2m.apps.googleusercontent.com",
+          "client_id": "412516532302-ac3ltu7094gd81vc8ci0i4ekpfaggbfo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.samchi.shikilia",
+            "certificate_hash": "2ba22ff06170ed7d3b5e27a54b7f9b94f967fe13"
+          }
+        },
+        {
+          "client_id": "412516532302-vce7ifotrh674nq4peuea2lqn36l1ur9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.samchi.shikilia",
@@ -51,11 +59,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "412516532302-e1vv498bd2p23g1tugvpoqnr5u02hios.apps.googleusercontent.com",
+          "client_id": "412516532302-96srl0gitctvhamrp9u4tn6u7f65vdir.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.samchi.shikilia.user",
             "certificate_hash": "d6fc6c5c67df8cc583cf9c5ade45225093ff160c"
+          }
+        },
+        {
+          "client_id": "412516532302-pgn01tg0khsmhctoollf34q3uvm6211k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.samchi.shikilia.user",
+            "certificate_hash": "2ba22ff06170ed7d3b5e27a54b7f9b94f967fe13"
           }
         },
         {
@@ -88,7 +104,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "412516532302-rli82gjl8mo5n97gp3qgf5dfelmtr2dc.apps.googleusercontent.com",
+          "client_id": "412516532302-3p0dkub3o8of3iibomdo4qdcs6ss0njr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.samchi.shikilia.vendor",
+            "certificate_hash": "2ba22ff06170ed7d3b5e27a54b7f9b94f967fe13"
+          }
+        },
+        {
+          "client_id": "412516532302-a8tohppdo64vr96a4vnd0h65vf2k71lq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.samchi.shikilia.vendor",

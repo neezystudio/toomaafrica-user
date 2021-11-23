@@ -1,7 +1,7 @@
 class Languages {
   Map<String, String> english() {
     return {
-      'Delivering almost': 'Delivering almost',
+      'The Perfect Shopping App': 'The Perfect Shopping App',
       'Everything': 'Everything.',
       'Enter mobile number': 'Enter mobile number',
       'Enter valid mobile number!': 'Enter valid mobile number!',
@@ -334,7 +334,7 @@ class Languages {
       "12": "12",
       "45": "45",
       "56": "56",
-      "Delivering almost": "Inatoa karibu",
+      "The Perfect Shopping App": "Programu Kamili ya Ununuzi",
       "Everything": "Kila kitu.",
       "Enter mobile number": "Weka nambari ya simu",
       "Enter valid mobile number!": "Weka nambari halali ya simu!",

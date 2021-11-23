@@ -41,7 +41,7 @@ class PaymentParcelPage extends StatefulWidget {
   ParcelAddress addressDelivery;
 
   PaymentParcelPage(this.vendor_ids, this.cart_id, this.totalAmount,
-      this.tagObjs, this.charges, this.distance,this.addressDelivery);
+      this.tagObjs, this.charges, this.distance, this.addressDelivery);
 
   @override
   State<StatefulWidget> createState() {
@@ -186,7 +186,8 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
       print(e);
     });
   }
-  void placedOrder(paymentStatus, paymentMethod,BuildContext context) {
+
+  void placedOrder(paymentStatus, paymentMethod, BuildContext context) {
     var locale = AppLocalizations.of(context);
     var url = parcel_orderplaced;
     http.post(url, body: {
@@ -195,14 +196,19 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
       'payment_status': paymentStatus,
       'cart_id': '${cart_id}',
       'total_price':
-      '${(double.parse('${double.parse('${widget.distance}').toStringAsFixed(2)}') * double.parse('${widget.charges}'))}',
+          '${(double.parse('${double.parse('${widget.distance}').toStringAsFixed(2)}') * double.parse('${widget.charges}'))}',
     }).then((value) {
       if (value != null && value.statusCode == 200) {
         var jsonData = jsonDecode(value.body);
         if (jsonData['status'] == "1") {
           CartDetail details = CartDetail.fromJson(jsonData['data']);
-          hitNavigator(cart_id, '${paymentMethod}', '${paymentStatus}', cart_id,
-              '${(double.parse('${double.parse('${widget.distance}').toStringAsFixed(2)}') * double.parse('${widget.charges}'))}',context);
+          hitNavigator(
+              cart_id,
+              '${paymentMethod}',
+              '${paymentStatus}',
+              cart_id,
+              '${(double.parse('${double.parse('${widget.distance}').toStringAsFixed(2)}') * double.parse('${widget.charges}'))}',
+              context);
         } else {
           setState(() {
             showDialogBox = false;
@@ -224,7 +230,8 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
       });
     });
   }
-  void appCoupon(couponCode,BuildContext context) {
+
+  void appCoupon(couponCode, BuildContext context) {
     var locale = AppLocalizations.of(context);
     var url = applyCoupon;
     http.post(url, body: {
@@ -380,8 +387,8 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
     });
   }
 
-  void hitNavigator(
-      cart_id, payment_method, payment_status, order_id, rem_price,BuildContext context) async {
+  void hitNavigator(cart_id, payment_method, payment_status, order_id,
+      rem_price, BuildContext context) async {
     var url = parcel_after_order_reward_msg;
     http.post(url, body: {
       'cart_id': '${cart_id}',
@@ -443,591 +450,110 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
       ),
       body: isFetch
           ? Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height - 64,
-        alignment: Alignment.center,
-        child: CircularProgressIndicator(),
-      )
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height - 64,
+              alignment: Alignment.center,
+              child: CircularProgressIndicator(),
+            )
           : Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height - 64,
-          child: Stack(
-            children: [
-              SingleChildScrollView(
-                primary: true,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Visibility(
-                        visible: (paymentVia.payMode.paymentStatus!=null && '${paymentVia.payMode.paymentStatus}'.toUpperCase()=='ON') ? true : false,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Visibility(
-                              visible: (paymentVia != null &&
-                                  (('${paymentVia.paystack.paystackStatus}'
-                                      .toUpperCase() ==
-                                      'YES') ||
-                                      ('${paymentVia.stripe.stripeStatus}'
-                                          .toUpperCase() ==
-                                          'YES') ||
-                                      '${paymentVia.paymongobean.razorpayStatus}'
-                                          .toUpperCase() ==
-                                          'YES')),
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 8.0, horizontal: 16.0),
-                                color: kCardBackgroundColor,
-                                child: Text(
-                                  locale.creditDebitCard,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .caption
-                                      .copyWith(
-                                      color: kDisabledColor,
-                                      fontWeight: FontWeight.bold,
-                                      letterSpacing: 0.67),
-                                ),
-                              ),
-                            ),
-                            Visibility(
-                              visible: (paymentVia != null &&
-                                  (('${paymentVia.paystack.paystackStatus}'
-                                      .toUpperCase() ==
-                                      'YES') ||
-                                      ('${paymentVia.stripe.stripeStatus}'
-                                          .toUpperCase() ==
-                                          'YES') ||
-                                      '${paymentVia.paymongobean.razorpayStatus}'
-                                          .toUpperCase() ==
-                                          'YES')),
-                              child: BuildListTile(
-                                image: 'images/payment/credit_card.png',
-                                text: locale.debitcard,
-                                onTap: () {
-                                  if ('${paymentVia.paystack.paystackStatus}'
-                                      .toUpperCase() ==
-                                      'YES') {
-                                    setState(() {
-                                      setProgressText =
-                                      'Proceeding to placed order please wait!....';
-                                      showDialogBox = true;
-                                    });
-                                    payStatck(
-                                        "${paymentVia.paystack.paystackPublicKey}",
-                                        (totalAmount * 100).toInt(),
-                                        context,
-                                        paymentVia.paystack.paymentCurrency);
-                                  } else if ('${paymentVia.stripe.stripeStatus}'
-                                      .toUpperCase() ==
-                                      'YES') {
-                                    setState(() {
-                                      setProgressText =
-                                      'Proceeding to placed order please wait!....';
-                                      showDialogBox = true;
-                                    });
-                                    
-                                    Navigator.of(context)
-                                        .pushNamed(PageRoutes.stripecard)
-                                        .then((value) {
-                                      if (value != null) {
-                                        CreditCard cardPay = value;
-                                        setStripePayment(
-                                            paymentVia.stripe.stripeSecret,
-                                            totalAmount,
-                                            cardPay,
-                                            paymentVia.stripe.paymentCurrency,
-                                            context);
-                                      } else {
-                                        Toast.show('Payment cancelled', context,
-                                            gravity: Toast.CENTER,
-                                            duration: Toast.LENGTH_SHORT);
-                                        setState(() {
-                                          showDialogBox = false;
-                                        });
-                                      }
-                                    }).catchError((e) {
-                                      Toast.show('Payment cancelled', context,
-                                          gravity: Toast.CENTER,
-                                          duration: Toast.LENGTH_SHORT);
-                                      setState(() {
-                                        showDialogBox = false;
-                                      });
-                                    });
-                                  } else if ('${paymentVia.paymongobean.razorpayStatus}'
-                                      .toUpperCase() ==
-                                      'YES') {
-                                    paymongoCreatePaymentIntent(
-                                        '${paymentVia.paymongobean.razorpaySecret}',
-                                        context,
-                                        (totalAmount * 100).toInt(),
-                                        '${paymentVia.paymongobean.paymentCurrency}');
-                                  }
-                                },
-                              ),
-                            ),
-                            Visibility(
-                              visible: (paymentVia != null &&
-                                  (('${paymentVia.paystack.paystackStatus}'
-                                      .toUpperCase() ==
-                                      'YES') ||
-                                      ('${paymentVia.stripe.stripeStatus}'
-                                          .toUpperCase() ==
-                                          'YES') ||
-                                      '${paymentVia.paymongobean.razorpayStatus}'
-                                          .toUpperCase() ==
-                                          'YES')),
-                              child: BuildListTile(
-                                image: 'images/payment/credit_card.png',
-                                text: locale.credticard,
-                                onTap: () {
-                                  if ('${paymentVia.paystack.paystackStatus}'
-                                      .toUpperCase() ==
-                                      'YES') {
-                                    setState(() {
-                                      setProgressText =
-                                      'Proceeding to placed order please wait!....';
-                                      showDialogBox = true;
-                                    });
-                                    payStatck(
-                                        "${paymentVia.paystack.paystackPublicKey}",
-                                        (totalAmount * 100).toInt(),
-                                        context,
-                                        paymentVia.paystack.paymentCurrency);
-                                  } else if ('${paymentVia.stripe.stripeStatus}'
-                                      .toUpperCase() ==
-                                      'YES') {
-                                    setState(() {
-                                      setProgressText =
-                                      'Proceeding to placed order please wait!....';
-                                      showDialogBox = true;
-                                    });
-                                    
-                                    Navigator.of(context)
-                                        .pushNamed(PageRoutes.stripecard)
-                                        .then((value) {
-                                      if (value != null) {
-                                        CreditCard cardPay = value;
-                                        setStripePayment(
-                                            paymentVia.stripe.stripeSecret,
-                                            totalAmount,
-                                            cardPay,
-                                            paymentVia.stripe.paymentCurrency,
-                                            context);
-                                      } else {
-                                        Toast.show('Payment cancelled', context,
-                                            gravity: Toast.CENTER,
-                                            duration: Toast.LENGTH_SHORT);
-                                        setState(() {
-                                          showDialogBox = false;
-                                        });
-                                      }
-                                    }).catchError((e) {
-                                      Toast.show('Payment cancelled', context,
-                                          gravity: Toast.CENTER,
-                                          duration: Toast.LENGTH_SHORT);
-                                      setState(() {
-                                        showDialogBox = false;
-                                      });
-                                    });
-                                  } else if ('${paymentVia.paymongobean.razorpayStatus}'
-                                      .toUpperCase() ==
-                                      'YES') {
-                                    paymongoCreatePaymentIntent(
-                                        '${paymentVia.paymongobean.razorpaySecret}',
-                                        context,
-                                        (totalAmount * 100).toInt(),
-                                        '${paymentVia.paymongobean.paymentCurrency}');
-                                  }
-                                },
-                              ),
-                            ),
-                          ],
-                        )),
-                    Visibility(
-                      visible: (iswallet || isCoupon) ? true : false,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 16.0),
-                            color: kCardBackgroundColor,
-                            child: Text(
-                              locale.walletText.toUpperCase(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .caption
-                                  .copyWith(
-                                  color: kDisabledColor,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 0.67),
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 20.0),
-                            child: Column(
-                              children: [
-                                Visibility(
-                                  visible: iswallet, //iswallet
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Image.asset(
-                                            'images/payment/wallet.png',
-                                            height: 20.3,
-                                          ),
-                                          SizedBox(
-                                            width: 25,
-                                          ),
-                                          Text(
-                                            locale.walletAmount,
-                                            style: TextStyle(fontSize: 14),
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        '${currency} ${walletAmount.toStringAsFixed(2)}',
-                                        style: TextStyle(fontSize: 15),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Visibility(
-                                  visible: iswallet, //iswallet
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Image.asset(
-                                            'images/payment/wallet.png',
-                                            height: 20.3,
-                                          ),
-                                          SizedBox(
-                                            width: 25,
-                                          ),
-                                          Text(
-                                            locale.walletAmount,
-                                            style: TextStyle(fontSize: 15),
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-
-                                        '- ${currency} ${walletUsedAmount.toStringAsFixed(2)}',
-                                        style: TextStyle(fontSize: 15),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Visibility(
-                                  visible: isCoupon, //isCoupon
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Image.asset(
-                                            'images/payment/coupon_amount.png',
-                                            height: 20.3,
-                                          ),
-                                          SizedBox(
-                                            width: 25,
-                                          ),
-                                          Text(
-                                            locale.couponAmount,
-                                            style: TextStyle(fontSize: 15),
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        '- ${currency} ${coupAmount.toStringAsFixed(2)}',
-                                        style: TextStyle(fontSize: 15),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Image.asset(
-                                          'images/payment/amount.png',
-                                          height: 20.3,
-                                        ),
-                                        SizedBox(
-                                          width: 25,
-                                        ),
-                                        Text(
-                                          locale.orderAmount,
-                                          style: TextStyle(fontSize: 15),
-                                        ),
-                                      ],
-                                    ),
-                                    Text(
-                                      '${currency} ${double.parse('$newtotalAmount').toStringAsFixed(2)}',
-                                      style: TextStyle(fontSize: 15),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Visibility(
-                      visible: (totalAmount > 0.0) ? true : false,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Visibility(
-                            visible: (paymentVia.payMode.codStatus!=null && '${paymentVia.payMode.codStatus}'.toUpperCase()=='ON') ? true : false,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height - 64,
+              child: Stack(
+                children: [
+                  SingleChildScrollView(
+                    primary: true,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Visibility(
+                            visible:
+                                (paymentVia.payMode.paymentStatus != null &&
+                                        '${paymentVia.payMode.paymentStatus}'
+                                                .toUpperCase() ==
+                                            'ON')
+                                    ? true
+                                    : false,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 8.0, horizontal: 16.0),
-                                  color: kCardBackgroundColor,
-                                  child: Text(
-                                    locale.cashText,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .caption
-                                        .copyWith(
-                                        color: kDisabledColor,
-                                        fontWeight: FontWeight.bold,
-                                        letterSpacing: 0.67),
+                                Visibility(
+                                  visible: (paymentVia != null &&
+                                      (('${paymentVia.paystack.paystackStatus}'
+                                                  .toUpperCase() ==
+                                              'YES') ||
+                                          ('${paymentVia.stripe.stripeStatus}'
+                                                  .toUpperCase() ==
+                                              'YES') ||
+                                          '${paymentVia.paymongobean.razorpayStatus}'
+                                                  .toUpperCase() ==
+                                              'YES')),
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 8.0, horizontal: 16.0),
+                                    color: kCardBackgroundColor,
+                                    child: Text(
+                                      locale.creditDebitCard,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .caption
+                                          .copyWith(
+                                              color: kDisabledColor,
+                                              fontWeight: FontWeight.bold,
+                                              letterSpacing: 0.67),
+                                    ),
                                   ),
                                 ),
-                                BuildListTile(
-                                    image: 'images/payment/amount.png',
-                                    text: 'Cash on Delivery',
+                                Visibility(
+                                  visible: (paymentVia != null &&
+                                      (('${paymentVia.paystack.paystackStatus}'
+                                                  .toUpperCase() ==
+                                              'YES') ||
+                                          ('${paymentVia.stripe.stripeStatus}'
+                                                  .toUpperCase() ==
+                                              'YES') ||
+                                          '${paymentVia.paymongobean.razorpayStatus}'
+                                                  .toUpperCase() ==
+                                              'YES')),
+                                  child: BuildListTile(
+                                    icon: Icons.credit_card,
+                                    text: locale.debitcard,
                                     onTap: () {
-                                      setState(() {
-                                        setProgressText =
-                                        'Proceeding to placed order please wait!....';
-                                        showDialogBox = true;
-                                      });
-                                      placedOrder("success", "COD", context);
-                                    }),
-                              ],
-                            ),
-                          ),
-                          Visibility(
-                            visible: (paymentVia.payMode.paymentStatus!=null && '${paymentVia.payMode.paymentStatus}'.toUpperCase()=='ON') ? true : false,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                (totalAmount > 0.0 &&
-                                    paymentVia != null &&
-                                    (('${paymentVia.paystack.paystackStatus}'
-                                        .toUpperCase() ==
-                                        'YES') ||
-                                        ('${paymentVia.razorpay.razorpayStatus}'
-                                            .toUpperCase() ==
-                                            'YES') ||
-                                        ('${paymentVia.paypal.paypalStatus}'
-                                            .toUpperCase() ==
-                                            'YES') ||
-                                        ('${paymentVia.paymongobean.razorpayStatus}'.toUpperCase()=='YES')
-                                        ||
-                                        ('${paymentVia.stripe.stripeStatus}'
-                                            .toUpperCase() ==
-                                            'YES')))
-                                    ? Container(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 8.0, horizontal: 16.0),
-                                  color: kCardBackgroundColor,
-                                  child: Text(
-                                    locale.onlinePaymentText,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .caption
-                                        .copyWith(
-                                        color: kDisabledColor,
-                                        fontWeight: FontWeight.bold,
-                                        letterSpacing: 0.67),
-                                  ),
-                                )
-                                    : SizedBox.shrink(),
-                                Visibility(
-                                    visible: (paymentVia != null &&
-                                        '${paymentVia.razorpay.razorpayStatus}'
-                                            .toUpperCase() ==
-                                            'YES'),
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      child: BuildListTile(
-                                        image: 'images/payment/credit_card.png',
-                                        text: 'RazorPay',
-                                        onTap: () {
-                                          setState(() {
-                                            setProgressText =
-                                            'Proceeding to placed order please wait!....';
-                                            showDialogBox = true;
-                                          });
-                                          openCheckout(
-                                              '${paymentVia.razorpay.razorpayKey}',
-                                              (totalAmount * 100),
-                                              '${paymentVia.razorpay.razorpaySecret}',
-                                              context);
-                                        },
-                                      ),
-                                    )),
-                                Visibility(
-                                    visible: (paymentVia != null &&
-                                        '${paymentVia.paymongobean.razorpayStatus}'
-                                            .toUpperCase() ==
-                                            'YES'),
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      child: BuildListTile(
-                                        image: 'images/payment/credit_card.png',
-                                        text: 'Paymongo',
-                                        onTap: () {
-                                          setState(() {
-                                            setProgressText =
-                                            'Proceeding to placed order please wait!....';
-                                            showDialogBox = true;
-                                          });
-                                          paymongoCreatePaymentIntent(
-                                              '${paymentVia.paymongobean.razorpaySecret}',
-                                              context,
-                                              (totalAmount * 100).toInt(),
-                                              '${paymentVia.paymongobean.paymentCurrency}');
-                                        },
-                                      ),
-                                    )),
-                                Visibility(
-                                    visible: (paymentVia != null &&
-                                        '${paymentVia.paystack.paystackStatus}'
-                                            .toUpperCase() ==
-                                            'YES'),
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      child: BuildListTile(
-                                        image: 'images/payment/credit_card.png',
-                                        text: 'Paystack',
-                                        onTap: () {
-                                          setState(() {
-                                            setProgressText =
-                                            'Proceeding to placed order please wait!....';
-                                            showDialogBox = true;
-                                          });
-                                          payStatck(
-                                              "${paymentVia.paystack.paystackPublicKey}",
-                                              (totalAmount * 100).toInt(),
-                                              context,
-                                              paymentVia
-                                                  .paystack.paymentCurrency);
-                                        },
-                                      ),
-                                    )),
-                                Visibility(
-                                    visible: (paymentVia != null &&
-                                        '${paymentVia.paypal.paypalStatus}'
-                                            .toUpperCase() ==
-                                            'YES'),
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      child: BuildListTile(
-                                        image: 'images/payment/credit_card.png',
-                                        text: 'Paypal',
-                                        onTap: () {
-                                          setState(() {
-                                            setProgressText =
-                                            'Proceeding to placed order please wait!....';
-                                            showDialogBox = true;
-                                          });
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (context) {
-                                                    return PaypalPayment(
-                                                        apCurrency:
-                                                        '${paymentVia.paypal.paymentCurrency}',
-                                                        clientId:
-                                                        '${paymentVia.paypal.paypalClientId}',
-                                                        secret:
-                                                        '${paymentVia.paypal.paypalSecret}',
-                                                        amount: '$totalAmount',
-                                                        onFinish: (id, status) {
-                                                          print('$id $status');
-                                                          if (status == 'success') {
-                                                            placedOrder("success", "Card",
-                                                                context);
-                                                          } else {
-                                                            setState(() {
-                                                              showDialogBox = false;
-                                                            });
-                                                          }
-                                                        });
-                                                  })).catchError((e) {
-                                            setState(() {
-                                              showDialogBox = false;
-                                            });
-                                          });
-                                        },
-                                      ),
-                                    )),
-                                Visibility(
-                                    visible: (paymentVia != null &&
-                                        '${paymentVia.stripe.stripeStatus}'
-                                            .toUpperCase() ==
-                                            'YES'),
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      child: BuildListTile(
-                                        image: 'images/payment/credit_card.png',
-                                        text: 'Stripe',
-                                        onTap: () {
-                                          setState(() {
-                                            setProgressText =
-                                            'Proceeding to placed order please wait!....';
-                                            showDialogBox = true;
-                                          });
-                                          
-                                          Navigator.of(context)
-                                              .pushNamed(PageRoutes.stripecard)
-                                              .then((value) {
-                                            if (value != null) {
-                                              CreditCard cardPay = value;
-                                              setStripePayment(
-                                                  paymentVia.stripe.stripeSecret,
-                                                  totalAmount,
-                                                  cardPay,
-                                                  paymentVia
-                                                      .stripe.paymentCurrency,
-                                                  context);
-                                            } else {
-                                              Toast.show(
-                                                  'Payment cancelled', context,
-                                                  gravity: Toast.CENTER,
-                                                  duration: Toast.LENGTH_SHORT);
-                                              setState(() {
-                                                showDialogBox = false;
-                                              });
-                                            }
-                                          }).catchError((e) {
+                                      if ('${paymentVia.paystack.paystackStatus}'
+                                              .toUpperCase() ==
+                                          'YES') {
+                                        setState(() {
+                                          setProgressText =
+                                              'Proceeding to placed order please wait!....';
+                                          showDialogBox = true;
+                                        });
+                                        payStatck(
+                                            "${paymentVia.paystack.paystackPublicKey}",
+                                            (totalAmount * 100).toInt(),
+                                            context,
+                                            paymentVia
+                                                .paystack.paymentCurrency);
+                                      } else if ('${paymentVia.stripe.stripeStatus}'
+                                              .toUpperCase() ==
+                                          'YES') {
+                                        setState(() {
+                                          setProgressText =
+                                              'Proceeding to placed order please wait!....';
+                                          showDialogBox = true;
+                                        });
+
+                                        Navigator.of(context)
+                                            .pushNamed(PageRoutes.stripecard)
+                                            .then((value) {
+                                          if (value != null) {
+                                            CreditCard cardPay = value;
+                                            setStripePayment(
+                                                paymentVia.stripe.stripeSecret,
+                                                totalAmount,
+                                                cardPay,
+                                                paymentVia
+                                                    .stripe.paymentCurrency,
+                                                context);
+                                          } else {
                                             Toast.show(
                                                 'Payment cancelled', context,
                                                 gravity: Toast.CENTER,
@@ -1035,331 +561,873 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
                                             setState(() {
                                               showDialogBox = false;
                                             });
+                                          }
+                                        }).catchError((e) {
+                                          Toast.show(
+                                              'Payment cancelled', context,
+                                              gravity: Toast.CENTER,
+                                              duration: Toast.LENGTH_SHORT);
+                                          setState(() {
+                                            showDialogBox = false;
                                           });
-                                        },
-                                      ),
-                                    )),
+                                        });
+                                      } else if ('${paymentVia.paymongobean.razorpayStatus}'
+                                              .toUpperCase() ==
+                                          'YES') {
+                                        paymongoCreatePaymentIntent(
+                                            '${paymentVia.paymongobean.razorpaySecret}',
+                                            context,
+                                            (totalAmount * 100).toInt(),
+                                            '${paymentVia.paymongobean.paymentCurrency}');
+                                      }
+                                    },
+                                  ),
+                                ),
                                 Visibility(
-                                    visible: (paymentVia != null &&
-                                        '${paymentVia.paymongobean.razorpayStatus}'
-                                            .toUpperCase() ==
-                                            'YES'),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  visible: (paymentVia != null &&
+                                      (('${paymentVia.paystack.paystackStatus}'
+                                                  .toUpperCase() ==
+                                              'YES') ||
+                                          ('${paymentVia.stripe.stripeStatus}'
+                                                  .toUpperCase() ==
+                                              'YES') ||
+                                          '${paymentVia.paymongobean.razorpayStatus}'
+                                                  .toUpperCase() ==
+                                              'YES')),
+                                  child: BuildListTile(
+                                    icon: Icons.credit_card,
+                                    text: locale.credticard,
+                                    onTap: () {
+                                      if ('${paymentVia.paystack.paystackStatus}'
+                                              .toUpperCase() ==
+                                          'YES') {
+                                        setState(() {
+                                          setProgressText =
+                                              'Proceeding to placed order please wait!....';
+                                          showDialogBox = true;
+                                        });
+                                        payStatck(
+                                            "${paymentVia.paystack.paystackPublicKey}",
+                                            (totalAmount * 100).toInt(),
+                                            context,
+                                            paymentVia
+                                                .paystack.paymentCurrency);
+                                      } else if ('${paymentVia.stripe.stripeStatus}'
+                                              .toUpperCase() ==
+                                          'YES') {
+                                        setState(() {
+                                          setProgressText =
+                                              'Proceeding to placed order please wait!....';
+                                          showDialogBox = true;
+                                        });
+
+                                        Navigator.of(context)
+                                            .pushNamed(PageRoutes.stripecard)
+                                            .then((value) {
+                                          if (value != null) {
+                                            CreditCard cardPay = value;
+                                            setStripePayment(
+                                                paymentVia.stripe.stripeSecret,
+                                                totalAmount,
+                                                cardPay,
+                                                paymentVia
+                                                    .stripe.paymentCurrency,
+                                                context);
+                                          } else {
+                                            Toast.show(
+                                                'Payment cancelled', context,
+                                                gravity: Toast.CENTER,
+                                                duration: Toast.LENGTH_SHORT);
+                                            setState(() {
+                                              showDialogBox = false;
+                                            });
+                                          }
+                                        }).catchError((e) {
+                                          Toast.show(
+                                              'Payment cancelled', context,
+                                              gravity: Toast.CENTER,
+                                              duration: Toast.LENGTH_SHORT);
+                                          setState(() {
+                                            showDialogBox = false;
+                                          });
+                                        });
+                                      } else if ('${paymentVia.paymongobean.razorpayStatus}'
+                                              .toUpperCase() ==
+                                          'YES') {
+                                        paymongoCreatePaymentIntent(
+                                            '${paymentVia.paymongobean.razorpaySecret}',
+                                            context,
+                                            (totalAmount * 100).toInt(),
+                                            '${paymentVia.paymongobean.paymentCurrency}');
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ],
+                            )),
+                        Visibility(
+                          visible: (iswallet || isCoupon) ? true : false,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 8.0, horizontal: 16.0),
+                                color: kCardBackgroundColor,
+                                child: Text(
+                                  locale.walletText.toUpperCase(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .caption
+                                      .copyWith(
+                                          color: kDisabledColor,
+                                          fontWeight: FontWeight.bold,
+                                          letterSpacing: 0.67),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10.0, horizontal: 20.0),
+                                child: Column(
+                                  children: [
+                                    Visibility(
+                                      visible: iswallet, //iswallet
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Image.asset(
+                                                'images/payment/wallet.png',
+                                                height: 20.3,
+                                              ),
+                                              SizedBox(
+                                                width: 25,
+                                              ),
+                                              Text(
+                                                locale.walletAmount,
+                                                style: TextStyle(fontSize: 14),
+                                              ),
+                                            ],
+                                          ),
+                                          Text(
+                                            '${currency} ${walletAmount.toStringAsFixed(2)}',
+                                            style: TextStyle(fontSize: 15),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Visibility(
+                                      visible: iswallet, //iswallet
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Image.asset(
+                                                'images/payment/wallet.png',
+                                                height: 20.3,
+                                              ),
+                                              SizedBox(
+                                                width: 25,
+                                              ),
+                                              Text(
+                                                locale.walletAmount,
+                                                style: TextStyle(fontSize: 15),
+                                              ),
+                                            ],
+                                          ),
+                                          Text(
+                                            '- ${currency} ${walletUsedAmount.toStringAsFixed(2)}',
+                                            style: TextStyle(fontSize: 15),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Visibility(
+                                      visible: isCoupon, //isCoupon
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Image.asset(
+                                                'images/payment/coupon_amount.png',
+                                                height: 20.3,
+                                              ),
+                                              SizedBox(
+                                                width: 25,
+                                              ),
+                                              Text(
+                                                locale.couponAmount,
+                                                style: TextStyle(fontSize: 15),
+                                              ),
+                                            ],
+                                          ),
+                                          Text(
+                                            '- ${currency} ${coupAmount.toStringAsFixed(2)}',
+                                            style: TextStyle(fontSize: 15),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Container(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 8.0, horizontal: 16.0),
-                                          color: kCardBackgroundColor,
-                                          child: Text(
-                                            locale.externalwallet,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .caption
-                                                .copyWith(
+                                        Row(
+                                          children: [
+                                            Image.asset(
+                                              'images/payment/amount.png',
+                                              height: 20.3,
+                                            ),
+                                            SizedBox(
+                                              width: 25,
+                                            ),
+                                            Text(
+                                              locale.orderAmount,
+                                              style: TextStyle(fontSize: 15),
+                                            ),
+                                          ],
+                                        ),
+                                        Text(
+                                          '${currency} ${double.parse('$newtotalAmount').toStringAsFixed(2)}',
+                                          style: TextStyle(fontSize: 15),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Visibility(
+                          visible: (totalAmount > 0.0) ? true : false,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Visibility(
+                                visible:
+                                    (paymentVia.payMode.codStatus != null &&
+                                            '${paymentVia.payMode.codStatus}'
+                                                    .toUpperCase() ==
+                                                'ON')
+                                        ? true
+                                        : false,
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 8.0, horizontal: 16.0),
+                                      color: kCardBackgroundColor,
+                                      child: Text(
+                                        locale.cashText,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .caption
+                                            .copyWith(
                                                 color: kDisabledColor,
                                                 fontWeight: FontWeight.bold,
                                                 letterSpacing: 0.67),
-                                          ),
-                                        ),
-                                        Container(
-                                          width: MediaQuery.of(context).size.width,
-                                          child: BuildListTile(
-                                            image: 'images/payment/credit_card.png',
-                                            text: 'G-Cash',
-                                            onTap: () {
-                                              setState(() {
-                                                setProgressText =
-                                                'Proceeding to placed order please wait!....';
-                                                showDialogBox = true;
-                                              });
-                                              paymongoCreateSource("${paymentVia.paymongobean.razorpaySecret}",context,(double.parse('${totalAmount}')*100).toInt(),'gcash');
-                                            },
-                                          ),
-                                        ),
-                                        Container(
-                                          width: MediaQuery.of(context).size.width,
-                                          child: BuildListTile(
-                                            image: 'images/payment/credit_card.png',
-                                            text: 'GrabPay',
-                                            onTap: () {
-                                              setState(() {
-                                                setProgressText =
-                                                'Proceeding to placed order please wait!....';
-                                                showDialogBox = true;
-                                              });
-                                              paymongoCreateSource("${paymentVia.paymongobean.razorpaySecret}",context,(double.parse('${totalAmount}')*100).toInt(),'grab_pay');
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    )),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 16.0),
-                            color: kCardBackgroundColor,
-                            child: Text(
-                              locale.promoCodeText,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .caption
-                                  .copyWith(
-                                  color: kDisabledColor,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 0.67),
-                            ),
-                          ),
-                          Divider(
-                            color: kCardBackgroundColor,
-                            thickness: 6.7,
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 20),
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Container(
-                                        width: MediaQuery.of(context)
-                                            .size
-                                            .width *
-                                            0.55,
-                                        height: 45,
-                                        alignment: Alignment.center,
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 2.0),
-                                        child: TextFormField(
-                                          textAlign: TextAlign.center,
-                                          decoration: InputDecoration(
-                                            hintText:
-                                            "Enter Your promo code",
-                                            fillColor: Colors.white,
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                              BorderRadius.circular(
-                                                  20.0),
-                                              borderSide: BorderSide(
-                                                  color: kMainColor,
-                                                  width: 1),
-                                            ),
-                                            focusedBorder:
-                                            OutlineInputBorder(
-                                              borderRadius:
-                                              BorderRadius.circular(
-                                                  20.0),
-                                              borderSide: BorderSide(
-                                                  color: kMainColor,
-                                                  width: 1),
-                                            ),
-                                            enabledBorder:
-                                            OutlineInputBorder(
-                                              borderRadius:
-                                              BorderRadius.circular(
-                                                  20.0),
-                                              borderSide: BorderSide(
-                                                  color: kMainColor,
-                                                  width: 1),
-                                            ),
-                                          ),
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 13),
-                                          cursorColor: kMainColor,
-                                          showCursor: false,
-                                          keyboardType: TextInputType.text,
-                                          onChanged: (val) {
-                                            setState(() => promocode = val);
-                                          },
-                                        ),
                                       ),
-                                      GestureDetector(
+                                    ),
+                                    BuildListTile(
+                                        icon: Icons.money,
+                                        text: 'Cash on Delivery',
                                         onTap: () {
                                           setState(() {
-                                            if (totalAmount != 0.0) {
-                                              visiblity = !visiblity;
-                                              setProgressText =
-                                              'Applying coupon please wait!....';
-                                              showDialogBox = true;
-                                              appCoupon(promocode, context);
-                                            } else {
-                                              Toast.show(
-                                                  locale
-                                                      .couponCodeNotApplicable,
-                                                  context,
-                                                  duration:
-                                                  Toast.LENGTH_SHORT,
-                                                  gravity: Toast.CENTER);
-                                            }
+                                            setProgressText =
+                                                'Proceeding to placed order please wait!....';
+                                            showDialogBox = true;
                                           });
-                                        },
+                                          placedOrder(
+                                              "success", "COD", context);
+                                        }),
+                                  ],
+                                ),
+                              ),
+                              Visibility(
+                                visible: (paymentVia.payMode.paymentStatus !=
+                                            null &&
+                                        '${paymentVia.payMode.paymentStatus}'
+                                                .toUpperCase() ==
+                                            'ON')
+                                    ? true
+                                    : false,
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    (totalAmount > 0.0 &&
+                                            paymentVia != null &&
+                                            (('${paymentVia.paystack.paystackStatus}'.toUpperCase() == 'YES') ||
+                                                ('${paymentVia.razorpay.razorpayStatus}'
+                                                        .toUpperCase() ==
+                                                    'YES') ||
+                                                ('${paymentVia.paypal.paypalStatus}'
+                                                        .toUpperCase() ==
+                                                    'YES') ||
+                                                ('${paymentVia.paymongobean.razorpayStatus}'
+                                                        .toUpperCase() ==
+                                                    'YES') ||
+                                                ('${paymentVia.stripe.stripeStatus}'
+                                                        .toUpperCase() ==
+                                                    'YES')))
+                                        ? Container(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 8.0,
+                                                horizontal: 16.0),
+                                            color: kCardBackgroundColor,
+                                            child: Text(
+                                              locale.onlinePaymentText,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .caption
+                                                  .copyWith(
+                                                      color: kDisabledColor,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      letterSpacing: 0.67),
+                                            ),
+                                          )
+                                        : SizedBox.shrink(),
+                                    Visibility(
+                                        visible: (paymentVia != null &&
+                                            '${paymentVia.razorpay.razorpayStatus}'
+                                                    .toUpperCase() ==
+                                                'YES'),
                                         child: Container(
-                                          alignment: Alignment.center,
-                                          width: MediaQuery.of(context)
-                                              .size
-                                              .width *
-                                              0.28,
-                                          height: 40,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                              BorderRadius.circular(40),
-                                              color: kMainColor),
-                                          child: Text(
-                                            locale.apply,
-                                            textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w300,
-                                                fontSize: 15,
-                                                color: kWhiteColor),
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          child: BuildListTile(
+                                            icon: Icons.credit_card,
+                                            text: 'RazorPay',
+                                            onTap: () {
+                                              setState(() {
+                                                setProgressText =
+                                                    'Proceeding to placed order please wait!....';
+                                                showDialogBox = true;
+                                              });
+                                              openCheckout(
+                                                  '${paymentVia.razorpay.razorpayKey}',
+                                                  (totalAmount * 100),
+                                                  '${paymentVia.razorpay.razorpaySecret}',
+                                                  context);
+                                            },
                                           ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          Divider(
-                            color: kCardBackgroundColor,
-                            thickness: 6.7,
-                          ),
-                          Visibility(
-                            visible: (couponL != null && couponL.length > 0)
-                                ? true
-                                : false,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              child: (couponL != null && couponL.length > 0)
-                                  ? ListView.builder(
-                                  primary: false,
-                                  shrinkWrap: true,
-                                  itemCount: couponL.length,
-                                  itemBuilder: (context, t) {
-                                    return Column(
-                                      children: [
-                                        Divider(
-                                          color: kCardBackgroundColor,
-                                          thickness: 2.3,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment
-                                              .spaceBetween,
-                                          children: [
-                                            Expanded(
-                                                child: Text(
-                                                    '${couponL[t].coupon_code}\n${couponL[t].coupon_description}')),
-                                            Radio(
-                                                value: t,
-                                                groupValue: radioId,
-                                                toggleable: true,
-                                                onChanged: (val) {
-                                                  print('${val}');
-                                                  print(
-                                                      '${radioId} - ${t}');
-                                                  if (radioId != t ||
-                                                      radioId == -1) {
-                                                    setState(() {
-                                                      if (totalAmount !=
-                                                          0.0) {
-                                                        radioId = t;
-                                                        print(
-                                                            '${radioId} - ${t}');
-                                                        setProgressText =
-                                                        'Applying coupon please wait!....';
-                                                        showDialogBox =
-                                                        true;
-                                                        appCoupon(
-                                                            couponL[t]
-                                                                .coupon_code,
-                                                            context);
+                                        )),
+                                    Visibility(
+                                        visible: (paymentVia != null &&
+                                            '${paymentVia.paymongobean.razorpayStatus}'
+                                                    .toUpperCase() ==
+                                                'YES'),
+                                        child: Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          child: BuildListTile(
+                                            icon: Icons.credit_card,
+                                            text: 'Paymongo',
+                                            onTap: () {
+                                              setState(() {
+                                                setProgressText =
+                                                    'Proceeding to placed order please wait!....';
+                                                showDialogBox = true;
+                                              });
+                                              paymongoCreatePaymentIntent(
+                                                  '${paymentVia.paymongobean.razorpaySecret}',
+                                                  context,
+                                                  (totalAmount * 100).toInt(),
+                                                  '${paymentVia.paymongobean.paymentCurrency}');
+                                            },
+                                          ),
+                                        )),
+                                    Visibility(
+                                        visible: (paymentVia != null &&
+                                            '${paymentVia.paystack.paystackStatus}'
+                                                    .toUpperCase() ==
+                                                'YES'),
+                                        child: Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          child: BuildListTile(
+                                            icon: Icons.credit_card,
+                                            text: 'Paystack',
+                                            onTap: () {
+                                              setState(() {
+                                                setProgressText =
+                                                    'Proceeding to placed order please wait!....';
+                                                showDialogBox = true;
+                                              });
+                                              payStatck(
+                                                  "${paymentVia.paystack.paystackPublicKey}",
+                                                  (totalAmount * 100).toInt(),
+                                                  context,
+                                                  paymentVia.paystack
+                                                      .paymentCurrency);
+                                            },
+                                          ),
+                                        )),
+                                    Visibility(
+                                        visible: (paymentVia != null &&
+                                            '${paymentVia.paypal.paypalStatus}'
+                                                    .toUpperCase() ==
+                                                'YES'),
+                                        child: Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          child: BuildListTile(
+                                            icon: Icons.credit_card,
+                                            text: 'Paypal',
+                                            onTap: () {
+                                              setState(() {
+                                                setProgressText =
+                                                    'Proceeding to placed order please wait!....';
+                                                showDialogBox = true;
+                                              });
+                                              Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) {
+                                                return PaypalPayment(
+                                                    apCurrency:
+                                                        '${paymentVia.paypal.paymentCurrency}',
+                                                    clientId:
+                                                        '${paymentVia.paypal.paypalClientId}',
+                                                    secret:
+                                                        '${paymentVia.paypal.paypalSecret}',
+                                                    amount: '$totalAmount',
+                                                    onFinish: (id, status) {
+                                                      print('$id $status');
+                                                      if (status == 'success') {
+                                                        placedOrder("success",
+                                                            "Card", context);
                                                       } else {
-                                                        Toast.show(
-                                                            locale
-                                                                .couponCodeNotApplicable,
-                                                            context,
-                                                            duration: Toast
-                                                                .LENGTH_SHORT,
-                                                            gravity: Toast
-                                                                .CENTER);
+                                                        setState(() {
+                                                          showDialogBox = false;
+                                                        });
                                                       }
                                                     });
-                                                  } else {
-                                                    setState(() {
-                                                      radioId = -1;
-                                                      showDialogBox =
-                                                      true;
-                                                      appCoupon(
-                                                          couponL[t]
-                                                              .coupon_code,
-                                                          context);
-                                                    });
-                                                  }
-                                                })
+                                              })).catchError((e) {
+                                                setState(() {
+                                                  showDialogBox = false;
+                                                });
+                                              });
+                                            },
+                                          ),
+                                        )),
+                                    Visibility(
+                                        visible: (paymentVia != null &&
+                                            '${paymentVia.stripe.stripeStatus}'
+                                                    .toUpperCase() ==
+                                                'YES'),
+                                        child: Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          child: BuildListTile(
+                                            icon: Icons.credit_card,
+                                            text: 'Stripe',
+                                            onTap: () {
+                                              setState(() {
+                                                setProgressText =
+                                                    'Proceeding to placed order please wait!....';
+                                                showDialogBox = true;
+                                              });
+
+                                              Navigator.of(context)
+                                                  .pushNamed(
+                                                      PageRoutes.stripecard)
+                                                  .then((value) {
+                                                if (value != null) {
+                                                  CreditCard cardPay = value;
+                                                  setStripePayment(
+                                                      paymentVia
+                                                          .stripe.stripeSecret,
+                                                      totalAmount,
+                                                      cardPay,
+                                                      paymentVia.stripe
+                                                          .paymentCurrency,
+                                                      context);
+                                                } else {
+                                                  Toast.show(
+                                                      'Payment cancelled',
+                                                      context,
+                                                      gravity: Toast.CENTER,
+                                                      duration:
+                                                          Toast.LENGTH_SHORT);
+                                                  setState(() {
+                                                    showDialogBox = false;
+                                                  });
+                                                }
+                                              }).catchError((e) {
+                                                Toast.show('Payment cancelled',
+                                                    context,
+                                                    gravity: Toast.CENTER,
+                                                    duration:
+                                                        Toast.LENGTH_SHORT);
+                                                setState(() {
+                                                  showDialogBox = false;
+                                                });
+                                              });
+                                            },
+                                          ),
+                                        )),
+                                    Visibility(
+                                        visible: (paymentVia != null &&
+                                            '${paymentVia.paymongobean.razorpayStatus}'
+                                                    .toUpperCase() ==
+                                                'YES'),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 8.0,
+                                                  horizontal: 16.0),
+                                              color: kCardBackgroundColor,
+                                              child: Text(
+                                                locale.externalwallet,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .caption
+                                                    .copyWith(
+                                                        color: kDisabledColor,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        letterSpacing: 0.67),
+                                              ),
+                                            ),
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: BuildListTile(
+                                                icon: Icons.credit_card,
+                                                text: 'G-Cash',
+                                                onTap: () {
+                                                  setState(() {
+                                                    setProgressText =
+                                                        'Proceeding to placed order please wait!....';
+                                                    showDialogBox = true;
+                                                  });
+                                                  paymongoCreateSource(
+                                                      "${paymentVia.paymongobean.razorpaySecret}",
+                                                      context,
+                                                      (double.parse(
+                                                                  '${totalAmount}') *
+                                                              100)
+                                                          .toInt(),
+                                                      'gcash');
+                                                },
+                                              ),
+                                            ),
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: BuildListTile(
+                                                icon: Icons.credit_card,
+                                                text: 'GrabPay',
+                                                onTap: () {
+                                                  setState(() {
+                                                    setProgressText =
+                                                        'Proceeding to placed order please wait!....';
+                                                    showDialogBox = true;
+                                                  });
+                                                  paymongoCreateSource(
+                                                      "${paymentVia.paymongobean.razorpaySecret}",
+                                                      context,
+                                                      (double.parse(
+                                                                  '${totalAmount}') *
+                                                              100)
+                                                          .toInt(),
+                                                      'grab_pay');
+                                                },
+                                              ),
+                                            ),
                                           ],
-                                        ),
-                                        Divider(
-                                          color: kCardBackgroundColor,
-                                          thickness: 2.3,
-                                        ),
-                                      ],
-                                    );
-                                  })
-                                  : Container(),
-                            ),
+                                        )),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 8.0, horizontal: 16.0),
+                                color: kCardBackgroundColor,
+                                child: Text(
+                                  locale.promoCodeText,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .caption
+                                      .copyWith(
+                                          color: kDisabledColor,
+                                          fontWeight: FontWeight.bold,
+                                          letterSpacing: 0.67),
+                                ),
+                              ),
+                              Divider(
+                                color: kCardBackgroundColor,
+                                thickness: 6.7,
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(horizontal: 20),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.55,
+                                            height: 45,
+                                            alignment: Alignment.center,
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 2.0),
+                                            child: TextFormField(
+                                              textAlign: TextAlign.center,
+                                              decoration: InputDecoration(
+                                                hintText:
+                                                    "Enter Your promo code",
+                                                fillColor: Colors.white,
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                  borderSide: BorderSide(
+                                                      color: kMainColor,
+                                                      width: 1),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                  borderSide: BorderSide(
+                                                      color: kMainColor,
+                                                      width: 1),
+                                                ),
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                  borderSide: BorderSide(
+                                                      color: kMainColor,
+                                                      width: 1),
+                                                ),
+                                              ),
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 13),
+                                              cursorColor: kMainColor,
+                                              showCursor: false,
+                                              keyboardType: TextInputType.text,
+                                              onChanged: (val) {
+                                                setState(() => promocode = val);
+                                              },
+                                            ),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                if (totalAmount != 0.0) {
+                                                  visiblity = !visiblity;
+                                                  setProgressText =
+                                                      'Applying coupon please wait!....';
+                                                  showDialogBox = true;
+                                                  appCoupon(promocode, context);
+                                                } else {
+                                                  Toast.show(
+                                                      locale
+                                                          .couponCodeNotApplicable,
+                                                      context,
+                                                      duration:
+                                                          Toast.LENGTH_SHORT,
+                                                      gravity: Toast.CENTER);
+                                                }
+                                              });
+                                            },
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.28,
+                                              height: 40,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(40),
+                                                  color: kMainColor),
+                                              child: Text(
+                                                locale.apply,
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w300,
+                                                    fontSize: 15,
+                                                    color: kWhiteColor),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Divider(
+                                color: kCardBackgroundColor,
+                                thickness: 6.7,
+                              ),
+                              Visibility(
+                                visible: (couponL != null && couponL.length > 0)
+                                    ? true
+                                    : false,
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 20),
+                                  child: (couponL != null && couponL.length > 0)
+                                      ? ListView.builder(
+                                          primary: false,
+                                          shrinkWrap: true,
+                                          itemCount: couponL.length,
+                                          itemBuilder: (context, t) {
+                                            return Column(
+                                              children: [
+                                                Divider(
+                                                  color: kCardBackgroundColor,
+                                                  thickness: 2.3,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                        child: Text(
+                                                            '${couponL[t].coupon_code}\n${couponL[t].coupon_description}')),
+                                                    Radio(
+                                                        value: t,
+                                                        groupValue: radioId,
+                                                        toggleable: true,
+                                                        onChanged: (val) {
+                                                          print('${val}');
+                                                          print(
+                                                              '${radioId} - ${t}');
+                                                          if (radioId != t ||
+                                                              radioId == -1) {
+                                                            setState(() {
+                                                              if (totalAmount !=
+                                                                  0.0) {
+                                                                radioId = t;
+                                                                print(
+                                                                    '${radioId} - ${t}');
+                                                                setProgressText =
+                                                                    'Applying coupon please wait!....';
+                                                                showDialogBox =
+                                                                    true;
+                                                                appCoupon(
+                                                                    couponL[t]
+                                                                        .coupon_code,
+                                                                    context);
+                                                              } else {
+                                                                Toast.show(
+                                                                    locale
+                                                                        .couponCodeNotApplicable,
+                                                                    context,
+                                                                    duration: Toast
+                                                                        .LENGTH_SHORT,
+                                                                    gravity: Toast
+                                                                        .CENTER);
+                                                              }
+                                                            });
+                                                          } else {
+                                                            setState(() {
+                                                              radioId = -1;
+                                                              showDialogBox =
+                                                                  true;
+                                                              appCoupon(
+                                                                  couponL[t]
+                                                                      .coupon_code,
+                                                                  context);
+                                                            });
+                                                          }
+                                                        })
+                                                  ],
+                                                ),
+                                                Divider(
+                                                  color: kCardBackgroundColor,
+                                                  thickness: 2.3,
+                                                ),
+                                              ],
+                                            );
+                                          })
+                                      : Container(),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 100,
+                              )
+                            ],
                           ),
-                          SizedBox(
-                            height: 100,
-                          )
-                        ],
-                      ),
+                        ),
+                        Visibility(
+                            visible: (totalAmount > 0.0) ? false : true,
+                            child: Container(
+                              height: 250,
+                              alignment: Alignment.bottomCenter,
+                              child: SizedBox(
+                                height: 40,
+                                width: 150,
+                                child: RaisedButton(
+                                  onPressed: () {
+                                    if (!showDialogBox) {
+                                      setState(() {
+                                        showDialogBox = true;
+                                      });
+                                      placedOrder('success', 'wallet', context);
+                                    }
+                                  },
+                                  child: Text(
+                                    locale.placeOrder,
+                                    style: TextStyle(
+                                        color: kWhiteColor,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                  color: kMainColor,
+                                  highlightColor: kMainColor,
+                                  focusColor: kMainColor,
+                                  splashColor: kMainColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                ),
+                              ),
+                            ))
+                      ],
                     ),
-                    Visibility(
-                        visible: (totalAmount > 0.0) ? false : true,
-                        child: Container(
-                          height: 250,
-                          alignment: Alignment.bottomCenter,
-                          child: SizedBox(
-                            height: 40,
-                            width: 150,
-                            child: RaisedButton(
-                              onPressed: () {
-                                if (!showDialogBox) {
-                                  setState(() {
-                                    showDialogBox = true;
-                                  });
-                                  placedOrder('success', 'wallet', context);
-                                }
-                              },
-                              child: Text(
-                                locale.placeOrder,
-                                style: TextStyle(
-                                    color: kWhiteColor,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                              color: kMainColor,
-                              highlightColor: kMainColor,
-                              focusColor: kMainColor,
-                              splashColor: kMainColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                            ),
-                          ),
-                        ))
-                  ],
-                ),
-              ),
-              Positioned.fill(
-                  child: Visibility(
+                  ),
+                  Positioned.fill(
+                      child: Visibility(
                     visible: showDialogBox,
                     child: GestureDetector(
                       onTap: () {},
@@ -1376,53 +1444,57 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
                       ),
                     ),
                   )),
-            ],
-          )),
+                ],
+              )),
     );
   }
 
-  void payStatck(String key, int price, BuildContext context, String paymentCurrency) async {
-    if(key.startsWith("pk_")){
-      payPlugin.initialize(publicKey: key).then((value){
-        _startAfreshCharge(price,paymentCurrency);
-      }).catchError((e){
+  void payStatck(String key, int price, BuildContext context,
+      String paymentCurrency) async {
+    if (key.startsWith("pk_")) {
+      payPlugin.initialize(publicKey: key).then((value) {
+        _startAfreshCharge(price, paymentCurrency);
+      }).catchError((e) {
         setState(() {
           showDialogBox = false;
         });
         print(e);
       });
-    }else{
+    } else {
       setState(() {
         showDialogBox = false;
       });
-      Toast.show('Server down please use another payment method.', context,duration: Toast.LENGTH_SHORT,gravity: Toast.CENTER);
+      Toast.show('Server down please use another payment method.', context,
+          duration: Toast.LENGTH_SHORT, gravity: Toast.CENTER);
     }
   }
 
-
-  void razorPay(keyRazorPay, amount, String secretKey, BuildContext context) async {
+  void razorPay(
+      keyRazorPay, amount, String secretKey, BuildContext context) async {
     _razorpay = Razorpay();
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
 
-    createOrderId(keyRazorPay,secretKey,amount.toInt(),'INR','order_trn_${DateTime.now().millisecond}',_razorpay,context);
+    createOrderId(keyRazorPay, secretKey, amount.toInt(), 'INR',
+        'order_trn_${DateTime.now().millisecond}', _razorpay, context);
   }
 
-  void openCheckout(keyRazorPay, amount, String secretKey, BuildContext context) async {
-    razorPay(keyRazorPay, amount,secretKey,context);
+  void openCheckout(
+      keyRazorPay, amount, String secretKey, BuildContext context) async {
+    razorPay(keyRazorPay, amount, secretKey, context);
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     if (response.paymentId != null) {
       placedOrder("success", "Card", contextf);
-    }else{
-      checkRazorpayOrderStatus(clientidR,screetKeyR,orderid,contextf);
+    } else {
+      checkRazorpayOrderStatus(clientidR, screetKeyR, orderid, contextf);
     }
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
-    checkRazorpayOrderStatus(clientidR,screetKeyR,orderid,contextf);
+    checkRazorpayOrderStatus(clientidR, screetKeyR, orderid, contextf);
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
@@ -1458,12 +1530,16 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
         .then((value) {
       print('orderid data - ${value.body}');
       var jsData = jsonDecode(value.body);
-      if(jsData['error']!=null){
+      if (jsData['error'] != null) {
         setState(() {
           showDialogBox = false;
         });
-        Toast.show('Something went wrong please contact with razorpay customer care.', context, duration: Toast.LENGTH_SHORT,gravity: Toast.CENTER);
-      }else{
+        Toast.show(
+            'Something went wrong please contact with razorpay customer care.',
+            context,
+            duration: Toast.LENGTH_SHORT,
+            gravity: Toast.CENTER);
+      } else {
         orderid = '${jsData['id']}';
         clientidR = '$clientid';
         screetKeyR = '$secretKey';
@@ -1501,42 +1577,56 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
     });
   }
 
-  void checkRazorpayOrderStatus(
-      dynamic clientid,
-      dynamic secretKey,
-      dynamic orderid,
-      BuildContext context) async {
+  void checkRazorpayOrderStatus(dynamic clientid, dynamic secretKey,
+      dynamic orderid, BuildContext context) async {
     print('$orderid');
     var authn = 'Basic ' + base64Encode(utf8.encode('$clientid:$secretKey'));
     Map<String, String> headers = {
       'Authorization': authn,
       'Content-Type': 'application/json'
     };
-    http.get(Uri.parse('$orderApiRazorpay/$orderid/payments'), headers: headers)
+    http
+        .get(Uri.parse('$orderApiRazorpay/$orderid/payments'), headers: headers)
         .then((value) {
       print('orderid data - ${value.body}');
       var jsData = jsonDecode(value.body);
-      if(jsData['error']!=null){
+      if (jsData['error'] != null) {
         setState(() {
           showDialogBox = false;
         });
-        Toast.show('Something went wrong please contact with razorpay customer care.', context, duration: Toast.LENGTH_SHORT,gravity: Toast.CENTER);
-      }else{
-        RazorpayOrderStatusBean rPayStaus = RazorpayOrderStatusBean.fromJson(jsonDecode(value.body));
-        if(int.parse('${rPayStaus.count}')>0){
-          if('${rPayStaus.items[0].status}'.toUpperCase()=='authorized'.toUpperCase() || '${rPayStaus.items[0].status}'.toUpperCase()=='captured'.toUpperCase()){
+        Toast.show(
+            'Something went wrong please contact with razorpay customer care.',
+            context,
+            duration: Toast.LENGTH_SHORT,
+            gravity: Toast.CENTER);
+      } else {
+        RazorpayOrderStatusBean rPayStaus =
+            RazorpayOrderStatusBean.fromJson(jsonDecode(value.body));
+        if (int.parse('${rPayStaus.count}') > 0) {
+          if ('${rPayStaus.items[0].status}'.toUpperCase() ==
+                  'authorized'.toUpperCase() ||
+              '${rPayStaus.items[0].status}'.toUpperCase() ==
+                  'captured'.toUpperCase()) {
             placedOrder("success", "Card", contextf);
-          }else{
+          } else {
             setState(() {
               showDialogBox = false;
             });
-            Toast.show('Something went wrong please contact with razorpay customer care.', context, duration: Toast.LENGTH_SHORT,gravity: Toast.CENTER);
+            Toast.show(
+                'Something went wrong please contact with razorpay customer care.',
+                context,
+                duration: Toast.LENGTH_SHORT,
+                gravity: Toast.CENTER);
           }
-        }else{
+        } else {
           setState(() {
             showDialogBox = false;
           });
-          Toast.show('Something went wrong please contact with razorpay customer care.', context, duration: Toast.LENGTH_SHORT,gravity: Toast.CENTER);
+          Toast.show(
+              'Something went wrong please contact with razorpay customer care.',
+              context,
+              duration: Toast.LENGTH_SHORT,
+              gravity: Toast.CENTER);
         }
       }
     }).catchError((e) {
@@ -1568,9 +1658,9 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
       print('${value.card}');
 
       if (value.status && value.message == "Success") {
-        placedOrder("success", "Card",context);
+        placedOrder("success", "Card", context);
       }
-    }).catchError((e){
+    }).catchError((e) {
       setState(() {
         showDialogBox = false;
       });
@@ -1597,13 +1687,16 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
     );
   }
 
-  void setStripePayment(dynamic clientScretKey, double amount,
-      CreditCard creditCardPay, String paymentCurrency, BuildContext context) async{
+  void setStripePayment(
+      dynamic clientScretKey,
+      double amount,
+      CreditCard creditCardPay,
+      String paymentCurrency,
+      BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // print('${creditCardPay.toJson().toString()}');
     Map<String, String> headers = {
-      'Authorization':
-      'Bearer $clientScretKey',
+      'Authorization': 'Bearer $clientScretKey',
       'Content-Type': 'application/x-www-form-urlencoded'
     };
 
@@ -1616,7 +1709,8 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
       'card[exp_year]': '${creditCardPay.expYear}',
       'card[cvc]': '${creditCardPay.cvc}',
       'billing_details[address][line1]': '${widget.addressDelivery.address}',
-      'billing_details[address][postal_code]': '${widget.addressDelivery.pincode}',
+      'billing_details[address][postal_code]':
+          '${widget.addressDelivery.pincode}',
       'billing_details[address][state]': '${widget.addressDelivery.state}',
       'billing_details[email]': '${prefs.getString('user_email')}',
       'billing_details[name]': '${prefs.getString('user_name')}',
@@ -1625,15 +1719,15 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
 
     http
         .post(Uri.parse('https://api.stripe.com/v1/payment_methods'),
-        body: body1, headers: headers)
+            body: body1, headers: headers)
         .then((value) {
       print(value.body);
       var jsP = jsonDecode(value.body);
-      if(jsP['error']!=null){
+      if (jsP['error'] != null) {
         setState(() {
           showDialogBox = false;
         });
-      }else{
+      } else {
         createPaymentIntent('${amount.toInt() * 100}', '$paymentCurrency',
             headers, jsP, clientScretKey, context);
       }
@@ -1674,12 +1768,13 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
       };
       http.post(paymentApiUrl, body: body, headers: hearder).then((value) {
         var js = jsonDecode(value.body);
-        if(js['error']!=null){
+        if (js['error'] != null) {
           setState(() {
             showDialogBox = false;
           });
-        }else{
-          confirmCreatePaymentIntent(amount, currency, hearder, paymentMethod, js, clientScretKey, context);
+        } else {
+          confirmCreatePaymentIntent(amount, currency, hearder, paymentMethod,
+              js, clientScretKey, context);
         }
       }).catchError((e) {
         print('dd ${e}');
@@ -1701,37 +1796,41 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
     }
   }
 
-  void confirmCreatePaymentIntent(String amount,
+  void confirmCreatePaymentIntent(
+      String amount,
       String currency,
       Map<String, String> hearder,
       dynamic paymentMethod,
       dynamic payintent,
       clientScretKey,
-      BuildContext context) async{
-
+      BuildContext context) async {
     var body1 = {
       'payment_method': '${paymentMethod['id']}',
       'use_stripe_sdk': 'false',
-      'return_url': '$imageBaseUrl'+'resources/views/admin/paymentvia/payment.php',
+      'return_url':
+          '$imageBaseUrl' + 'resources/views/admin/paymentvia/payment.php',
     };
 
-    http.post(Uri.parse('$paymentApiUrl/${payintent['id']}/confirm'),
-        body: body1, headers: hearder)
+    http
+        .post(Uri.parse('$paymentApiUrl/${payintent['id']}/confirm'),
+            body: body1, headers: hearder)
         .then((value) {
       print(value.body);
       var js = jsonDecode(value.body);
-      if(js['error']!=null){
+      if (js['error'] != null) {
         setState(() {
           showDialogBox = false;
         });
-      }else{
-        if('${js['status']}'=='succeeded'){
-          placedOrder("success", "Card",context);
-        }else if('${js['status']}'=='requires_action'){
-          if(js['next_action']!=null && js['next_action']['redirect_to_url']!=null){
-            Navigator.of(context).pushNamed(PageRoutes.paymentdoned, arguments: {
-              'url': js['next_action']['redirect_to_url']['url']
-            }).then((value) {
+      } else {
+        if ('${js['status']}' == 'succeeded') {
+          placedOrder("success", "Card", context);
+        } else if ('${js['status']}' == 'requires_action') {
+          if (js['next_action'] != null &&
+              js['next_action']['redirect_to_url'] != null) {
+            Navigator.of(context).pushNamed(PageRoutes.paymentdoned,
+                arguments: {
+                  'url': js['next_action']['redirect_to_url']['url']
+                }).then((value) {
               confirmPaymentStripe(payintent['id'], hearder);
             }).catchError((e) {
               print(e);
@@ -1739,7 +1838,7 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
                 showDialogBox = false;
               });
             });
-          }else{
+          } else {
             setState(() {
               showDialogBox = false;
             });
@@ -1752,23 +1851,23 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
         showDialogBox = false;
       });
     });
-
   }
 
-  void confirmPaymentStripe(dynamic jsValue, dynamic hearder) async{
-    http.get(Uri.parse('$paymentApiUrl/$jsValue'),headers: hearder)
+  void confirmPaymentStripe(dynamic jsValue, dynamic hearder) async {
+    http
+        .get(Uri.parse('$paymentApiUrl/$jsValue'), headers: hearder)
         .then((value) {
       print(value.body);
       var js = jsonDecode(value.body);
-      if(js['error']!=null){
+      if (js['error'] != null) {
         setState(() {
           showDialogBox = false;
         });
-      }else{
+      } else {
         print(js['status']);
-        if('${js['status']}'=='succeeded'){
-          placedOrder("success", "Card",context);
-        }else{
+        if ('${js['status']}' == 'succeeded') {
+          placedOrder("success", "Card", context);
+        } else {
           setState(() {
             showDialogBox = false;
           });
@@ -1782,7 +1881,8 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
     });
   }
 
-  void createCharge(String tokenId,dynamic secretKey,dynamic currency,dynamic amount, Map<String, String> headers) async {
+  void createCharge(String tokenId, dynamic secretKey, dynamic currency,
+      dynamic amount, Map<String, String> headers) async {
     try {
       Map<String, dynamic> body = {
         'amount': '$amount',
@@ -1790,24 +1890,26 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
         'source': tokenId,
         'description': 'Shopping Charges'
       };
-      http.post(
-          Uri.parse('https://api.stripe.com/v1/charges'),
-          body: body,
-          headers: headers
-      ).then((value){
+      http
+          .post(Uri.parse('https://api.stripe.com/v1/charges'),
+              body: body, headers: headers)
+          .then((value) {
         print('ss - ${value.body}');
-        if(value.body.toString().contains('error')){
+        if (value.body.toString().contains('error')) {
           var jsd = jsonDecode(value.body);
           ErrorSt errorResp = ErrorSt.fromJson(jsd['error']);
-          Toast.show('${errorResp.message}', context,duration: Toast.LENGTH_SHORT,gravity: Toast.CENTER);
+          Toast.show('${errorResp.message}', context,
+              duration: Toast.LENGTH_SHORT, gravity: Toast.CENTER);
           setState(() {
             showDialogBox = false;
           });
-        }else{
-          StripeChargeResponse chargeResp = StripeChargeResponse.fromJson(jsonDecode(value.body));
-          if('${chargeResp.status}'.toUpperCase()=='succeeded'.toUpperCase()){
-            placedOrder("success", "Card",context);
-          }else{
+        } else {
+          StripeChargeResponse chargeResp =
+              StripeChargeResponse.fromJson(jsonDecode(value.body));
+          if ('${chargeResp.status}'.toUpperCase() ==
+              'succeeded'.toUpperCase()) {
+            placedOrder("success", "Card", context);
+          } else {
             setState(() {
               showDialogBox = false;
             });
@@ -1823,13 +1925,14 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
   }
 
   //paymongo
-  void paymongoCreatePaymentMethod(PaymentIntentPaymongo pday, Map<String, String> headers, BuildContext context) async {
+  void paymongoCreatePaymentMethod(PaymentIntentPaymongo pday,
+      Map<String, String> headers, BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    Navigator.of(context).pushNamed(PageRoutes.paymongocd).then((cardValue){
+    Navigator.of(context).pushNamed(PageRoutes.paymongocd).then((cardValue) {
       print('${cardValue.toString()}');
       List<dynamic> cardDetaiils = List.from(cardValue);
       print('${cardDetaiils.toString()}');
-      if(cardDetaiils!=null && cardDetaiils.length == 5){
+      if (cardDetaiils != null && cardDetaiils.length == 5) {
         print('${cardDetaiils.toString()}');
         var carddetails = {
           'card_number': '${cardDetaiils[0]}'.replaceAll(' ', ''),
@@ -1853,18 +1956,23 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
           "data": {"type": "payment_method", "attributes": body}
         };
 
-        http.post(paymentMethod, body: jsonEncode(bodyd), headers: headers).then((value) {
+        http
+            .post(paymentMethod, body: jsonEncode(bodyd), headers: headers)
+            .then((value) {
           print('${value.body}');
           var jsonD = jsonDecode(value.body);
           PaymentMethodPaymongo pmpa = PaymentMethodPaymongo.fromJson(jsonD);
-          if(pmpa.data.id!=null){
-            paymongoAtachPaymentIntent(pday,pmpa,context,headers);
-          }else{
-            PayErrorPaymongo payErr = PayErrorPaymongo.fromJson(jsonDecode(value.body));
-            if(payErr!=null){
-              Toast.show('${payErr.errors[0].detail}'.split('.')[1], context,gravity: Toast.CENTER,duration: Toast.LENGTH_SHORT);
-            }else{
-              Toast.show('something went wrong!', context,gravity: Toast.CENTER,duration: Toast.LENGTH_SHORT);
+          if (pmpa.data.id != null) {
+            paymongoAtachPaymentIntent(pday, pmpa, context, headers);
+          } else {
+            PayErrorPaymongo payErr =
+                PayErrorPaymongo.fromJson(jsonDecode(value.body));
+            if (payErr != null) {
+              Toast.show('${payErr.errors[0].detail}'.split('.')[1], context,
+                  gravity: Toast.CENTER, duration: Toast.LENGTH_SHORT);
+            } else {
+              Toast.show('something went wrong!', context,
+                  gravity: Toast.CENTER, duration: Toast.LENGTH_SHORT);
             }
             setState(() {
               showDialogBox = false;
@@ -1876,22 +1984,25 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
             showDialogBox = false;
           });
         });
-      }else{
+      } else {
         setState(() {
           showDialogBox = false;
         });
-        Toast.show('Payment Cancel', context,gravity: Toast.CENTER,duration: Toast.LENGTH_SHORT);
+        Toast.show('Payment Cancel', context,
+            gravity: Toast.CENTER, duration: Toast.LENGTH_SHORT);
       }
-    }).catchError((e){
+    }).catchError((e) {
       print(e);
       setState(() {
         showDialogBox = false;
       });
-      Toast.show('Payment Cancel', context,gravity: Toast.CENTER,duration: Toast.LENGTH_SHORT);
+      Toast.show('Payment Cancel', context,
+          gravity: Toast.CENTER, duration: Toast.LENGTH_SHORT);
     });
   }
 
-  void paymongoCreatePaymentIntent(dynamic clientSceret,BuildContext context, int amount, String appCurency) async {
+  void paymongoCreatePaymentIntent(dynamic clientSceret, BuildContext context,
+      int amount, String appCurency) async {
     // dynamic clientSceret = 'sk_test_WphgutE5gYz2N2coQniARcYc';
     var keys = base64Encode(utf8.encode('$clientSceret'));
     var authn = 'Basic ' + keys;
@@ -1916,17 +2027,23 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
         }
       }
     };
-    http.post(paymentIntent, body: jsonEncode(bodyd), headers: headers).then((value) {
+    http
+        .post(paymentIntent, body: jsonEncode(bodyd), headers: headers)
+        .then((value) {
       print('${value.body}');
-      PaymentIntentPaymongo pday = PaymentIntentPaymongo.fromJson(jsonDecode(value.body));
-      if(pday!=null){
-        paymongoCreatePaymentMethod(pday,headers,context);
-      }else{
-        PayErrorPaymongo payErr = PayErrorPaymongo.fromJson(jsonDecode(value.body));
-        if(payErr!=null){
-          Toast.show('${payErr.errors[0].detail}'.split('.')[1], context,gravity: Toast.CENTER,duration: Toast.LENGTH_SHORT);
-        }else{
-          Toast.show('something went wrong!', context,gravity: Toast.CENTER,duration: Toast.LENGTH_SHORT);
+      PaymentIntentPaymongo pday =
+          PaymentIntentPaymongo.fromJson(jsonDecode(value.body));
+      if (pday != null) {
+        paymongoCreatePaymentMethod(pday, headers, context);
+      } else {
+        PayErrorPaymongo payErr =
+            PayErrorPaymongo.fromJson(jsonDecode(value.body));
+        if (payErr != null) {
+          Toast.show('${payErr.errors[0].detail}'.split('.')[1], context,
+              gravity: Toast.CENTER, duration: Toast.LENGTH_SHORT);
+        } else {
+          Toast.show('something went wrong!', context,
+              gravity: Toast.CENTER, duration: Toast.LENGTH_SHORT);
         }
         setState(() {
           showDialogBox = false;
@@ -1940,49 +2057,61 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
     });
   }
 
-  void paymongoAtachPaymentIntent(PaymentIntentPaymongo pday, PaymentMethodPaymongo pmpa, BuildContext context, Map<String, String> headers) async {
+  void paymongoAtachPaymentIntent(
+      PaymentIntentPaymongo pday,
+      PaymentMethodPaymongo pmpa,
+      BuildContext context,
+      Map<String, String> headers) async {
     var bodyd = {
       "data": {
         "attributes": {
           'payment_method': '${pmpa.data.id}',
           'client_key': '${pday.data.attributes.clientKey}',
-          'return_url': '$imageBaseUrl'+'resources/views/admin/paymentvia/payment.php',
+          'return_url':
+              '$imageBaseUrl' + 'resources/views/admin/paymentvia/payment.php',
         }
       }
     };
 
-    http.post(Uri.parse('$paymentIntent/${pday.data.id}/attach'),
-        body: jsonEncode(bodyd), headers: headers)
+    http
+        .post(Uri.parse('$paymentIntent/${pday.data.id}/attach'),
+            body: jsonEncode(bodyd), headers: headers)
         .then((value) {
       print('${value.body}');
-      PaymentAttachPaymongo padm = PaymentAttachPaymongo.fromJson(jsonDecode(value.body));
-      if(padm!=null){
-        if(padm.data.attributes.payments!=null && padm.data.attributes.payments.length>0){
-          if(padm.data.attributes.payments[0].attributes.status=='paid'){
-            placedOrder('success', 'Card',context);
+      PaymentAttachPaymongo padm =
+          PaymentAttachPaymongo.fromJson(jsonDecode(value.body));
+      if (padm != null) {
+        if (padm.data.attributes.payments != null &&
+            padm.data.attributes.payments.length > 0) {
+          if (padm.data.attributes.payments[0].attributes.status == 'paid') {
+            placedOrder('success', 'Card', context);
           }
-        }else if(padm.data.attributes.nextAction!=null){
-          Navigator.of(context).pushNamed(PageRoutes.paymentdoned,arguments: {
-            'url':padm.data.attributes.nextAction.redirect.url
-          }).then((value){
-            getPaymentStatusPaymongo(padm.data.id,context,headers,padm.data.attributes.clientKey);
-          }).catchError((e){
+        } else if (padm.data.attributes.nextAction != null) {
+          Navigator.of(context).pushNamed(PageRoutes.paymentdoned, arguments: {
+            'url': padm.data.attributes.nextAction.redirect.url
+          }).then((value) {
+            getPaymentStatusPaymongo(
+                padm.data.id, context, headers, padm.data.attributes.clientKey);
+          }).catchError((e) {
             print(e);
             setState(() {
               showDialogBox = false;
             });
           });
-        }else{
+        } else {
           setState(() {
             showDialogBox = false;
           });
         }
-      }else{
-        PayErrorPaymongo payErr = PayErrorPaymongo.fromJson(jsonDecode(value.body));
-        if(payErr!=null){
-          Toast.show('${payErr.errors[0].detail}'.split('.')[1], context,gravity: Toast.CENTER,duration: Toast.LENGTH_SHORT);
-        }else{
-          Toast.show('something went wrong!', context,gravity: Toast.CENTER,duration: Toast.LENGTH_SHORT);
+      } else {
+        PayErrorPaymongo payErr =
+            PayErrorPaymongo.fromJson(jsonDecode(value.body));
+        if (payErr != null) {
+          Toast.show('${payErr.errors[0].detail}'.split('.')[1], context,
+              gravity: Toast.CENTER, duration: Toast.LENGTH_SHORT);
+        } else {
+          Toast.show('something went wrong!', context,
+              gravity: Toast.CENTER, duration: Toast.LENGTH_SHORT);
         }
         setState(() {
           showDialogBox = false;
@@ -1996,50 +2125,59 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
     });
   }
 
-  void getPaymentStatusPaymongo(dynamic id, BuildContext context, Map<String, String> headers, String clientKey){
-    var queryParameters = {
-      "client_key":"$clientKey"
-    };
-    var uri = Uri.https('$baseUrlPaymongo', 'v1/payment_intents/$id',queryParameters);
-    http.get(uri,headers: headers).then((value){
+  void getPaymentStatusPaymongo(dynamic id, BuildContext context,
+      Map<String, String> headers, String clientKey) {
+    var queryParameters = {"client_key": "$clientKey"};
+    var uri = Uri.https(
+        '$baseUrlPaymongo', 'v1/payment_intents/$id', queryParameters);
+    http.get(uri, headers: headers).then((value) {
       print('vb - ${value.body}');
-      PaymentAttachPaymongo padm = PaymentAttachPaymongo.fromJson(jsonDecode(value.body));
-      if(padm!=null){
-        if(padm.data.attributes.payments!=null && padm.data.attributes.payments.length>0){
-          if(padm.data.attributes.payments[0].attributes.status=='paid'){
-            placedOrder('success', 'Card',context);
-          }else{
-            Toast.show('${padm.data.attributes.status}', context,gravity: Toast.CENTER,duration: Toast.LENGTH_SHORT);
+      PaymentAttachPaymongo padm =
+          PaymentAttachPaymongo.fromJson(jsonDecode(value.body));
+      if (padm != null) {
+        if (padm.data.attributes.payments != null &&
+            padm.data.attributes.payments.length > 0) {
+          if (padm.data.attributes.payments[0].attributes.status == 'paid') {
+            placedOrder('success', 'Card', context);
+          } else {
+            Toast.show('${padm.data.attributes.status}', context,
+                gravity: Toast.CENTER, duration: Toast.LENGTH_SHORT);
             setState(() {
               showDialogBox = false;
             });
           }
-        }else{
-          Toast.show('${padm.data.attributes.status}', context,gravity: Toast.CENTER,duration: Toast.LENGTH_SHORT);
+        } else {
+          Toast.show('${padm.data.attributes.status}', context,
+              gravity: Toast.CENTER, duration: Toast.LENGTH_SHORT);
           setState(() {
             showDialogBox = false;
           });
         }
-      }else{
-        PayErrorPaymongo payErr = PayErrorPaymongo.fromJson(jsonDecode(value.body));
-        if(payErr!=null){
-          Toast.show('${payErr.errors[0].detail}'.split('.')[1], context,gravity: Toast.CENTER,duration: Toast.LENGTH_SHORT);
-        }else{
-          Toast.show('something went wrong!', context,gravity: Toast.CENTER,duration: Toast.LENGTH_SHORT);
+      } else {
+        PayErrorPaymongo payErr =
+            PayErrorPaymongo.fromJson(jsonDecode(value.body));
+        if (payErr != null) {
+          Toast.show('${payErr.errors[0].detail}'.split('.')[1], context,
+              gravity: Toast.CENTER, duration: Toast.LENGTH_SHORT);
+        } else {
+          Toast.show('something went wrong!', context,
+              gravity: Toast.CENTER, duration: Toast.LENGTH_SHORT);
         }
         setState(() {
           showDialogBox = false;
         });
       }
-    }).catchError((e){
-      Toast.show('something went wrong!', context,gravity: Toast.CENTER,duration: Toast.LENGTH_SHORT);
+    }).catchError((e) {
+      Toast.show('something went wrong!', context,
+          gravity: Toast.CENTER, duration: Toast.LENGTH_SHORT);
       setState(() {
         showDialogBox = false;
       });
     });
   }
 
-  void paymongoCreateSource(dynamic clientSceret,BuildContext context, int amount, String type) async {
+  void paymongoCreateSource(dynamic clientSceret, BuildContext context,
+      int amount, String type) async {
     var keys = base64Encode(utf8.encode('$clientSceret'));
     var authn = 'Basic ' + keys;
     print(authn);
@@ -2054,33 +2192,41 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
           "amount": amount,
           "currency": "PHP",
           "redirect": {
-            "failed": "$imageBaseUrl"+"resources/views/admin/paymentvia/payment.php",
-            "success": "$imageBaseUrl"+"resources/views/admin/paymentvia/payment.php"
+            "failed": "$imageBaseUrl" +
+                "resources/views/admin/paymentvia/payment.php",
+            "success":
+                "$imageBaseUrl" + "resources/views/admin/paymentvia/payment.php"
           },
           "type": type
         }
       }
     };
-    http.post(Uri.parse('https://api.paymongo.com/v1/sources'), body: jsonEncode(bodyd), headers: headers).then((value) {
+    http
+        .post(Uri.parse('https://api.paymongo.com/v1/sources'),
+            body: jsonEncode(bodyd), headers: headers)
+        .then((value) {
       print('${value.body}');
       PayMongoSource pday = PayMongoSource.fromJson(jsonDecode(value.body));
-      if(pday!=null && pday.data!=null){
-        Navigator.of(context).pushNamed(PageRoutes.paymentdoned,arguments: {
-          'url':pday.data.attributes.redirect.checkoutUrl
-        }).then((value){
-          payMongoCreatePayment(pday.data.id,context,amount,headers,type);
-        }).catchError((e){
+      if (pday != null && pday.data != null) {
+        Navigator.of(context).pushNamed(PageRoutes.paymentdoned, arguments: {
+          'url': pday.data.attributes.redirect.checkoutUrl
+        }).then((value) {
+          payMongoCreatePayment(pday.data.id, context, amount, headers, type);
+        }).catchError((e) {
           print(e);
           setState(() {
             showDialogBox = false;
           });
         });
-      }else{
-        PayErrorPaymongo payErr = PayErrorPaymongo.fromJson(jsonDecode(value.body));
-        if(payErr!=null){
-          Toast.show('${payErr.errors[0].detail}', context,gravity: Toast.CENTER,duration: Toast.LENGTH_SHORT);
-        }else{
-          Toast.show('something went wrong!', context,gravity: Toast.CENTER,duration: Toast.LENGTH_SHORT);
+      } else {
+        PayErrorPaymongo payErr =
+            PayErrorPaymongo.fromJson(jsonDecode(value.body));
+        if (payErr != null) {
+          Toast.show('${payErr.errors[0].detail}', context,
+              gravity: Toast.CENTER, duration: Toast.LENGTH_SHORT);
+        } else {
+          Toast.show('something went wrong!', context,
+              gravity: Toast.CENTER, duration: Toast.LENGTH_SHORT);
         }
         setState(() {
           showDialogBox = false;
@@ -2094,34 +2240,38 @@ class PaymentParcelPageState extends State<PaymentParcelPage> {
     });
   }
 
-  void payMongoCreatePayment(String sourceId, BuildContext context, int amount, Map<String, String> headers,String paymentType){
+  void payMongoCreatePayment(String sourceId, BuildContext context, int amount,
+      Map<String, String> headers, String paymentType) {
     var bodyd = {
-      "data":{
-        "attributes":{
-          "amount":amount,
-          "currency":"PHP",
-          "description":"Shopping Charges",
-          "statement_descriptor":"Shopping Charges for Grocery at $appname",
-          "source":{
-            "id":sourceId,
-            "type":"source"
-          }
+      "data": {
+        "attributes": {
+          "amount": amount,
+          "currency": "PHP",
+          "description": "Shopping Charges",
+          "statement_descriptor": "Shopping Charges for Grocery at $appname",
+          "source": {"id": sourceId, "type": "source"}
         }
       }
     };
-    http.post(Uri.parse('https://api.paymongo.com/v1/payments'), body: jsonEncode(bodyd), headers: headers).then((value) {
+    http
+        .post(Uri.parse('https://api.paymongo.com/v1/payments'),
+            body: jsonEncode(bodyd), headers: headers)
+        .then((value) {
       print('${value.body}');
       PayMongoPayment pday = PayMongoPayment.fromJson(jsonDecode(value.body));
-      if(pday!=null && pday.data!=null){
-        if('${pday.data.attributes.status}'.toUpperCase()=='PAID'){
+      if (pday != null && pday.data != null) {
+        if ('${pday.data.attributes.status}'.toUpperCase() == 'PAID') {
           placedOrder("success", paymentType, context);
         }
-      }else{
-        PayErrorPaymongo payErr = PayErrorPaymongo.fromJson(jsonDecode(value.body));
-        if(payErr!=null){
-          Toast.show('${payErr.errors[0].detail}', context,gravity: Toast.CENTER,duration: Toast.LENGTH_SHORT);
-        }else{
-          Toast.show('something went wrong!', context,gravity: Toast.CENTER,duration: Toast.LENGTH_SHORT);
+      } else {
+        PayErrorPaymongo payErr =
+            PayErrorPaymongo.fromJson(jsonDecode(value.body));
+        if (payErr != null) {
+          Toast.show('${payErr.errors[0].detail}', context,
+              gravity: Toast.CENTER, duration: Toast.LENGTH_SHORT);
+        } else {
+          Toast.show('something went wrong!', context,
+              gravity: Toast.CENTER, duration: Toast.LENGTH_SHORT);
         }
         setState(() {
           showDialogBox = false;
