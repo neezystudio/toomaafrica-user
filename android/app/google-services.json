@@ -7,26 +7,26 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:412516532302:android:5d02655f490e55a5f4831f",
+        "mobilesdk_app_id": "1:412516532302:android:a368de93b1a91b33f4831f",
         "android_client_info": {
-          "package_name": "com.samchi.shikilia"
+          "package_name": "com.samchi.shikilia.rider"
         }
       },
       "oauth_client": [
         {
-          "client_id": "412516532302-ac3ltu7094gd81vc8ci0i4ekpfaggbfo.apps.googleusercontent.com",
+          "client_id": "412516532302-0iscof32k0b8h39v8sqced0flq6eeb3l.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.samchi.shikilia",
-            "certificate_hash": "2ba22ff06170ed7d3b5e27a54b7f9b94f967fe13"
+            "package_name": "com.samchi.shikilia.rider",
+            "certificate_hash": "d6fc6c5c67df8cc583cf9c5ade45225093ff160c"
           }
         },
         {
-          "client_id": "412516532302-vce7ifotrh674nq4peuea2lqn36l1ur9.apps.googleusercontent.com",
+          "client_id": "412516532302-q1i585dhtobm4ncoejd1koopu8h3anih.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.samchi.shikilia",
-            "certificate_hash": "d6fc6c5c67df8cc583cf9c5ade45225093ff160c"
+            "package_name": "com.samchi.shikilia.rider",
+            "certificate_hash": "68767f7f8063337def27f21577e9859876db171e"
           }
         },
         {
@@ -58,6 +58,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "412516532302-379ss4temekuk1m8uhd17e31sgf0166t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.samchi.shikilia.user",
+            "certificate_hash": "4ae1b20b42b6e548e52d6c403933742e1b4c51cd"
+          }
+        },
         {
           "client_id": "412516532302-96srl0gitctvhamrp9u4tn6u7f65vdir.apps.googleusercontent.com",
           "client_type": 1,
@@ -117,6 +125,14 @@
           "android_info": {
             "package_name": "com.samchi.shikilia.vendor",
             "certificate_hash": "d6fc6c5c67df8cc583cf9c5ade45225093ff160c"
+          }
+        },
+        {
+          "client_id": "412516532302-hpvvd0h6dmj2a6ts9qqaqktmip3obi9q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.samchi.shikilia.vendor",
+            "certificate_hash": "41f70f827733d3129d880b4745824a9526150e9e"
           }
         },
         {
